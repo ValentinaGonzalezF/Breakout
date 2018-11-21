@@ -1,6 +1,8 @@
 package main.java.logic.brick;
-
-public abstract class AbstracBrick implements Brick{
+import main.java.logic.Visitable;
+import java.util.Observable;
+import main.java.logic.Visitor;
+public abstract class AbstracBrick extends Observable implements Brick, Visitable {
     protected int hitPoints;
     protected int score;
     protected boolean destroyed;
@@ -32,4 +34,6 @@ public abstract class AbstracBrick implements Brick{
     public int remainingHits(){
         return hitPoints;
     }
+
+    public abstract void accept(Visitor v);
 }

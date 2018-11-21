@@ -1,6 +1,7 @@
 package main.java.facade;
 
 import main.java.controller.Game;
+import main.java.logic.Visitor;
 import main.java.logic.brick.*;
 import main.java.logic.level.*;
 
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author Juan-Pablo Silva
  */
-public class HomeworkTwoFacade {
+public abstract class HomeworkTwoFacade implements Visitor {
     /**
      * Instance of the game controller.
      *
@@ -31,6 +32,9 @@ public class HomeworkTwoFacade {
      * @see Level
      */
     public Level newLevelWithBricksFull(String name, int numberOfBricks, double probOfGlass, double probOfMetal, int seed) {
+        double probOfWooden=1-probOfGlass;
+
+
         return null;
     }
 
@@ -45,6 +49,7 @@ public class HomeworkTwoFacade {
      * @see Level
      */
     public Level newLevelWithBricksNoMetal(String name, int numberOfBricks, double probOfGlass, int seed) {
+        double probOfWooden=1-probOfGlass;
         return null;
     }
 
