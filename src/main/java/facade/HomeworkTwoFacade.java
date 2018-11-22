@@ -4,15 +4,16 @@ import main.java.controller.Game;
 import main.java.logic.Visitor;
 import main.java.logic.brick.*;
 import main.java.logic.level.*;
+import main.java.logic.*;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * Facade class to expose the logic of the game to a GUI in the upcoming homework.
  *
  * @author Juan-Pablo Silva
  */
-public abstract class HomeworkTwoFacade implements Visitor {
+public abstract class HomeworkTwoFacade{
     /**
      * Instance of the game controller.
      *
@@ -32,10 +33,7 @@ public abstract class HomeworkTwoFacade implements Visitor {
      * @see Level
      */
     public Level newLevelWithBricksFull(String name, int numberOfBricks, double probOfGlass, double probOfMetal, int seed) {
-        double probOfWooden=1-probOfGlass;
-
-
-        return null;
+        return game.newLevelWithBricksFull(name,numberOfBricks,probOfGlass,probOfMetal,seed);
     }
 
     /**
@@ -49,12 +47,11 @@ public abstract class HomeworkTwoFacade implements Visitor {
      * @see Level
      */
     public Level newLevelWithBricksNoMetal(String name, int numberOfBricks, double probOfGlass, int seed) {
-        double probOfWooden=1-probOfGlass;
-        return null;
+        return game.newLevelWithBricksNoMetal(name,numberOfBricks,probOfGlass,seed);
     }
-
     /**
      * Gets the number of {@link Brick} in the current level, that are still not destroyed
+     *
      *
      * @return the number of intact bricks in the current level
      */
@@ -68,7 +65,7 @@ public abstract class HomeworkTwoFacade implements Visitor {
      * @return the list of bricks
      */
     public List<Brick> getBricks() {
-        return  ;
+        return  null;
     }
 
     /**

@@ -4,7 +4,7 @@ import main.java.controller.Game.*;
 
 
 public class MetalBrick extends AbstracBrick {
-    protected MetalBrick(){
+    public MetalBrick(){
         super();
         hitPoints=10;
     }

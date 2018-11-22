@@ -3,37 +3,12 @@ import main.java.logic.brick.AbstracBrick;
 import main.java.logic.brick.Brick;
 import java.util.*;
 
-public class NullLevel extends Observable implements Level{
-    protected String name;
-    protected int bricksNumber;
-    protected int points;
-    protected List<Brick> brickList;
-    protected Level nextLevel;
-    public NullLevel(){
-        bricksNumber=0;
-        name="";
-        points=0;
-        brickList= new ArrayList<Brick>();
-    }
+public class NullLevel extends AbstractLevel{
 
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public int getNumberOfBricks() {
-        return bricksNumber;
-    }
-
-    @Override
-    public List<Brick> getBricks() {
-        return brickList;
-    }
-
-    @Override
-    public Level getNextLevel() {
-        return nextLevel;
+    public NullLevel(String n, List<Brick> list) {
+        //valores cero
+        super(n,list);
+        this.nextLevel=this;
     }
 
     @Override
@@ -53,7 +28,7 @@ public class NullLevel extends Observable implements Level{
 
     @Override
     public Level addPlayingLevel(Level level) {
-        return null;
+        return level;
     }
 
     @Override

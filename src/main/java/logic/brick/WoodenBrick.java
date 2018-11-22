@@ -2,7 +2,7 @@ package main.java.logic.brick;
 import main.java.logic.Visitor;
 
 public class WoodenBrick extends AbstracBrick {
-    protected WoodenBrick(){
+    public WoodenBrick(){
         super();
         hitPoints=3;
         score=200;
