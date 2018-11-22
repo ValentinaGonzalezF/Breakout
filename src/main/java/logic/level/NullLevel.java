@@ -1,22 +1,20 @@
 package main.java.logic.level;
-
 import main.java.logic.brick.AbstracBrick;
 import main.java.logic.brick.Brick;
+import java.util.*;
 
-import java.util.List;
-import java.util.Observable;
+public class NullLevel implements Level{
 
-public class ClassLevel implements Level {
     protected String name;
     protected int bricksNumber;
     protected int points;
     protected List<Brick> brickList;
     protected Level nextLevel;
-    public ClassLevel(String n,int b,int p, List<Brick> list){
-        bricksNumber=b;
-        name=n;
-        points=p;
-        brickList=list;
+    public NullLevel(){
+        bricksNumber=0;
+        name="";
+        points=0;
+        brickList= new ArrayList<Brick>();
     }
 
     @Override
@@ -26,45 +24,42 @@ public class ClassLevel implements Level {
 
     @Override
     public int getNumberOfBricks() {
-        return bricksNumber;
+        return 0;
     }
 
     @Override
     public List<Brick> getBricks() {
-        return brickList;
+        return null;
     }
 
     @Override
     public Level getNextLevel() {
-        return nextLevel;
+        return null;
     }
 
     @Override
-    //duda
     public boolean isPlayableLevel() {
-        return true;
+        return false;
     }
 
     @Override
-    //duda
     public boolean hasNextLevel() {
         return false;
     }
 
     @Override
     public int getPoints() {
-        return points;
+        return 0;
     }
 
     @Override
-    //duda
     public Level addPlayingLevel(Level level) {
         return null;
     }
 
     @Override
     public void setNextLevel(Level level) {
-        nextLevel=level;
+
     }
 
     @Override
