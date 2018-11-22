@@ -68,7 +68,7 @@ public abstract class HomeworkTwoFacade implements Visitor {
      * @return the list of bricks
      */
     public List<Brick> getBricks() {
-        return null;
+        return  ;
     }
 
     /**

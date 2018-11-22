@@ -6,17 +6,18 @@ import main.java.logic.brick.Brick;
 import java.util.List;
 import java.util.Observable;
 
-public class ClassLevel implements Level {
+public class ClassLevel extends Observable implements Level {
     protected String name;
     protected int bricksNumber;
     protected int points;
     protected List<Brick> brickList;
-    protected Level nextLevel;
+    public Level nextLevel;
     public ClassLevel(String n,int b,int p, List<Brick> list){
         bricksNumber=b;
         name=n;
         points=p;
         brickList=list;
+        nextLevel=null;
     }
 
     @Override
@@ -46,9 +47,8 @@ public class ClassLevel implements Level {
     }
 
     @Override
-    //duda
     public boolean hasNextLevel() {
-        return false;
+        return nextLevel!=null;
     }
 
     @Override
@@ -57,9 +57,13 @@ public class ClassLevel implements Level {
     }
 
     @Override
-    //duda
     public Level addPlayingLevel(Level level) {
-        return null;
+        Level t = level;
+        while (!(t.getNextLevel() instanceof NullLevel)){
+           t=t.getNextLevel();
+        }
+        t.setNextLevel(level);
+        return level;
     }
 
     @Override

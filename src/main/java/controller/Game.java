@@ -1,11 +1,14 @@
 package main.java.controller;
 
+import java.util.Observable;
+import java.util.Observer;
+
 /**
  * Game logic controller class.
  *
  * @author Juan-Pablo Silva
  */
-public class Game {
+public class Game implements Observer{
     protected int balls;
     protected int totalscore;
 
@@ -34,10 +37,8 @@ public class Game {
     }
 
 
+    @Override
+    public void update(Observable observable, Object o) {
 
-
-
-
-
-
+    }
 }
