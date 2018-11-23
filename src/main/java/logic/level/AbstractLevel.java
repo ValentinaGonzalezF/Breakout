@@ -19,11 +19,9 @@ public abstract class AbstractLevel extends Observable implements Level{
     protected String ultimo;
 
     public AbstractLevel(String n, List<Brick> list){
-        points=0;
         brickList=list;
         bricksNumber=this.brickList.size();
         name=n;
-        nextLevel=null;
         actualPoints=0;
         points=this.getPoints();
         ultimo="";

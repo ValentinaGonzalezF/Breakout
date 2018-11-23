@@ -13,14 +13,12 @@ public class Game implements Observer{
     protected int balls;
     protected int totalscore;
     protected Level currentLevel;
-    protected boolean passfirstlevel;
 
     public Game(int balls) {
         this.balls=balls;
         totalscore=0;
         List<Brick> list= new ArrayList<>();
         currentLevel=new NullLevel("",list);
-        passfirstlevel=false;
     }
 
     public void addBall(){
@@ -117,8 +115,7 @@ public class Game implements Observer{
      * Pass to the next level of the current {@link Level}. Ignores all conditions and skip to the next level.
      */
     public void goNextLevel() {
-        passfirstlevel=true;
-        totalscore+=currentLevel.getPoints();
+        totalscore+=((AbstractLevel)currentLevel).getActualPoints();
         setCurrentLevel(currentLevel.getNextLevel());
     }
 
@@ -182,8 +179,8 @@ public class Game implements Observer{
      *
      * @return the cumulative points
      */
-    public int getCurrentPoints() {
-        return ((AbstractLevel)currentLevel).getActualPoints();
+    public int getCurrentPoints(){
+        return totalscore+((AbstractLevel)currentLevel).getActualPoints();
     }
 
     /**
@@ -213,9 +210,12 @@ public class Game implements Observer{
      * @return true if the game is over, false otherwise
      */
     public boolean isGameOver() {
-        return balls==0;
+        if(balls==0){return true;}
+        else if (winner()) {
+            return true;
+        }
+        return false;
     }
-
     /**
      * This method is just an example. Change it or delete it at wish.
      * <p>
@@ -224,11 +224,10 @@ public class Game implements Observer{
      * @return true if the game has a winner, false otherwise
      */
     public boolean winner() {
-        if (isGameOver()) {
-            return false;
-        } else if (!currentLevel.getNextLevel().isPlayableLevel() && passfirstlevel) {
-            return true;
-        } else {
+       if (!currentLevel.isPlayableLevel() && totalscore>0){
+           return true;
+        }
+        else {
             return false;
         }
     }
@@ -240,7 +239,7 @@ public class Game implements Observer{
                 this.addBall();
             }
 
-            if (currentLevel.getPoints()==((AbstractLevel)currentLevel).getActualPoints()){
+            if(currentLevel.getPoints()==((AbstractLevel)currentLevel).getActualPoints()){
                 this.goNextLevel();
             }
         }
