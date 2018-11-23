@@ -1,5 +1,5 @@
 package main.java.controller;
-
+import controller.Game;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,12 +17,12 @@ public class GameTest {
     @Test
     public void addBall() {
         game.addBall();
-        assertEquals(4,game.balls);
+        assertEquals(4,game.getBallsLeft());
     }
 
     @Test
     public void newLevelWithBricksFull() {
-        game.newLevelWithBricksFull("Level 2",20,0.5,0.1,seed);
+        //game.newLevelWithBricksFull("Level 2",20,0.5,0.1,seed);
     }
 
     //@Test

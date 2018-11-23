@@ -1,6 +1,6 @@
-package main.java.logic.brick;
-import main.java.logic.Visitor;
-import main.java.controller.Game.*;
+package logic.brick;
+import controller.Game;
+import logic.VisitorLevel;
 
 
 public class MetalBrick extends AbstracBrick {
@@ -9,11 +9,12 @@ public class MetalBrick extends AbstracBrick {
         hitPoints=10;
     }
 
-    public void accept(Visitor v){
-        v.visitMetalBrick(this);
-    }
-
     public int getScore(){
         return score;
+    }
+
+    @Override
+    public void accept(VisitorLevel v) {
+        v.visitMetalBrick(this);
     }
 }

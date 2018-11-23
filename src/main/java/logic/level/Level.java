@@ -1,15 +1,17 @@
-package main.java.logic.level;
-import main.java.logic.Visitor;
-import main.java.logic.brick.*;
+package logic.level;
+import logic.VisitableBrick;
+import logic.VisitorLevel;
+import logic.brick.*;
 import java.util.List;
-import java.util.Observable;
 import java.util.Observer;
 /**
  * Interface that represents the basics of a level to be played on.
  *
  * @author Juan-Pablo Silva
  */
-public interface Level extends Visitor,Observer{
+public interface Level extends Observer,VisitorLevel {
+
+    String getUltimo();
     /**
      * Gets the level's name. Each level must have a name.
      *
@@ -72,4 +74,8 @@ public interface Level extends Visitor,Observer{
      * @param level the next level of a level object
      */
     void setNextLevel(Level level);
+
+    public void visitGlassBrick(VisitableBrick b);
+    public void visitWoodenBrick(VisitableBrick b);
+    public void visitMetalBrick(VisitableBrick b);
 }

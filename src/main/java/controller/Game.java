@@ -1,13 +1,8 @@
-package main.java.controller;
+package controller;
 
-import main.java.logic.brick.Brick;
-import main.java.logic.brick.GlassBrick;
-import main.java.logic.brick.MetalBrick;
-import main.java.logic.brick.WoodenBrick;
-import main.java.logic.level.ClassLevel;
-import main.java.logic.level.Level;
-import main.java.logic.level.NullLevel;
-
+import logic.brick.*;
+import logic.level.Level;
+import logic.level.*;
 import java.util.*;
 /**
  * Game logic controller class.
@@ -19,6 +14,7 @@ public class Game implements Observer{
     protected int totalscore;
     protected Level currentLevel;
     protected int counter;
+    protected boolean passfirstlevel;
 
     public Game(int balls) {
         this.balls=balls;
@@ -26,6 +22,7 @@ public class Game implements Observer{
         List<Brick> list= new ArrayList<>();
         currentLevel=new NullLevel("",list);
         counter=0;
+        passfirstlevel=false;
     }
 
     public void addBall(){
@@ -65,6 +62,7 @@ public class Game implements Observer{
             i++;
         }
         Level a= new ClassLevel(name,lista);
+        suscribeAll(a,lista);
         return a;
     }
 
@@ -89,6 +87,7 @@ public class Game implements Observer{
             i++;
         }
         Level a= new ClassLevel(name,lista);
+        suscribeAll(a,lista);
         return a;
     }
     /**
@@ -129,7 +128,9 @@ public class Game implements Observer{
      * Pass to the next level of the current {@link Level}. Ignores all conditions and skip to the next level.
      */
     public void goNextLevel() {
-        currentLevel=currentLevel.getNextLevel();
+        passfirstlevel=true;
+        totalscore+=currentLevel.getPoints();
+        setCurrentLevel(currentLevel.getNextLevel());
     }
 
     /**
@@ -138,7 +139,7 @@ public class Game implements Observer{
      * @return true if the current level is playable, false otherwise
      */
     public boolean hasCurrentLevel() {
-        return false;
+        return currentLevel.isPlayableLevel();
     }
 
     /**
@@ -168,6 +169,7 @@ public class Game implements Observer{
      */
     public void setCurrentLevel(Level level) {
         currentLevel=level;
+        ((AbstractLevel)currentLevel).addObserver(this);
     }
 
     /**
@@ -175,11 +177,9 @@ public class Game implements Observer{
      *
      * @param level the level to be added
      */
-    public void addPlayingLevel(Level level) {
-        currentLevel.addPlayingLevel(level);
-
+    public void addPlayingLevel(Level level){
+        currentLevel=currentLevel.addPlayingLevel(level);
     }
-
     /**
      * Gets the number of points required to pass to the next level. Gets the points obtainable in the current {@link Level}.
      *
@@ -194,7 +194,7 @@ public class Game implements Observer{
      * @return the cumulative points
      */
     public int getCurrentPoints() {
-        return totalscore;
+        return ((AbstractLevel)currentLevel).getActualPoints();
     }
 
     /**
@@ -212,7 +212,9 @@ public class Game implements Observer{
      * @return the new number of available balls
      */
     public int dropBall() {
-        balls--;
+        if (balls>0){
+            balls--;
+        }
         return balls;
     }
 
@@ -222,7 +224,7 @@ public class Game implements Observer{
      * @return true if the game is over, false otherwise
      */
     public boolean isGameOver() {
-        return false;
+        return balls==0;
     }
 
     /**
@@ -233,16 +235,31 @@ public class Game implements Observer{
      * @return true if the game has a winner, false otherwise
      */
     public boolean winner() {
-        if (balls==0){
+        if (isGameOver()) {
+            return false;
+        } else if (!currentLevel.getNextLevel().isPlayableLevel() && passfirstlevel) {
+            return true;
+        } else {
             return false;
         }
-        //else if ()
-        //si todos los niveles se pasaron
-        return true;
     }
 
     @Override
     public void update(Observable observable, Object o) {
+        if(observable instanceof Level) {
+            if (((Level)observable).getUltimo()=="metal"){
+                addBall();
+            }
 
+            if (currentLevel.getPoints()==((AbstractLevel)currentLevel).getActualPoints()){
+                this.goNextLevel();
+            }
+        }
+    }
+
+    public void suscribeAll(Level level, List<Brick> bricks){
+        for(Brick brick: bricks){
+            brick.suscribe(level);
+        }
     }
 }

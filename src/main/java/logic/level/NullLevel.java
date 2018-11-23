@@ -1,12 +1,11 @@
-package main.java.logic.level;
-import main.java.logic.brick.AbstracBrick;
-import main.java.logic.brick.Brick;
+package logic.level;
+import logic.brick.AbstracBrick;
+import logic.brick.Brick;
 import java.util.*;
 
 public class NullLevel extends AbstractLevel{
 
     public NullLevel(String n, List<Brick> list) {
-        //valores cero
         super(n,list);
         this.nextLevel=this;
     }
@@ -38,21 +37,6 @@ public class NullLevel extends AbstractLevel{
 
     @Override
     public void update(Observable observable, Object o) {
-
-    }
-
-    @Override
-    public void visitGlassBrick(AbstracBrick b) {
-
-    }
-
-    @Override
-    public void visitWoodenBrick(AbstracBrick b) {
-
-    }
-
-    @Override
-    public void visitMetalBrick(AbstracBrick b) {
 
     }
 }

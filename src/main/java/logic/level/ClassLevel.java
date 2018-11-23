@@ -1,39 +1,21 @@
-package main.java.logic.level;
+package logic.level;
 
-import main.java.logic.brick.AbstracBrick;
-import main.java.logic.brick.Brick;
+import logic.brick.AbstracBrick;
+import logic.brick.Brick;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
 public class ClassLevel extends AbstractLevel{
     public ClassLevel(String n, List<Brick> list){
         super(n,list);
+        setNextLevel(new NullLevel("", new ArrayList<>()));
     }
 
     @Override
     public boolean hasNextLevel() {
-        return nextLevel!=null;
+        return this.nextLevel.isPlayableLevel();
     }
 
-
-    @Override
-    public void update(Observable observable, Object o) {
-
-    }
-
-    @Override
-    public void visitGlassBrick(AbstracBrick b) {
-
-    }
-
-    @Override
-    public void visitWoodenBrick(AbstracBrick b) {
-
-    }
-
-    @Override
-    public void visitMetalBrick(AbstracBrick b) {
-
-    }
 }

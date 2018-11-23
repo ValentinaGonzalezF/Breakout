@@ -1,10 +1,13 @@
-package main.java.logic.level;
+package logic.level;
 
-import main.java.logic.brick.AbstracBrick;
-import main.java.logic.brick.Brick;
-
+import logic.VisitableBrick;
+import logic.VisitorLevel;
+import logic.brick.AbstracBrick;
+import logic.brick.Brick;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
+import controller.Game;
 
 public abstract class AbstractLevel extends Observable implements Level{
     protected String name;
@@ -13,14 +16,17 @@ public abstract class AbstractLevel extends Observable implements Level{
     protected int actualPoints;
     protected List<Brick> brickList;
     public Level nextLevel;
+    protected String ultimo;
 
     public AbstractLevel(String n, List<Brick> list){
+        points=0;
         brickList=list;
         bricksNumber=this.brickList.size();
         name=n;
         nextLevel=null;
         actualPoints=0;
         points=this.getPoints();
+        ultimo="";
     }
 
     public String getName() {
@@ -44,13 +50,13 @@ public abstract class AbstractLevel extends Observable implements Level{
         return true;
     }
 
-    public boolean hasNextLevel() {
-        return nextLevel!=null;
-    }
+    public abstract boolean hasNextLevel();
 
     public int getPoints() {
-        for(Brick brick: brickList){
-            points+=brick.getScore();
+        if (points==0){
+            for(Brick brick: brickList) {
+                points += brick.getScore();
+            }
         }
         return points;
     }
@@ -64,20 +70,38 @@ public abstract class AbstractLevel extends Observable implements Level{
         nextLevel=level;
     }
 
+    public int getActualPoints() {
+        return actualPoints;
+    }
 
     public void update(Observable observable, Object o) {
-
+        if(observable instanceof Brick){
+            ((AbstracBrick) observable).accept(this);
+        }
+    }
+    public void suscribe(Game game){
+        this.addObserver(game);
     }
 
-    public void visitGlassBrick(AbstracBrick b) {
-
+    public String getUltimo(){
+        return ultimo;
     }
-
-    public void visitWoodenBrick(AbstracBrick b) {
-
+    public void visitGlassBrick(VisitableBrick b){
+        actualPoints+= ((Brick)b).getScore();
+        ultimo="glass";
+        setChanged();
+        this.notifyObservers();
     }
-
-    public void visitMetalBrick(AbstracBrick b) {
-
+    public void visitWoodenBrick(VisitableBrick b){
+        actualPoints+= ((Brick)b).getScore();
+        ultimo="wooden";
+        setChanged();
+        this.notifyObservers();
+    }
+    public void visitMetalBrick(VisitableBrick b){
+        actualPoints+= ((Brick)b).getScore();
+        ultimo="metal";
+        setChanged();
+        this.notifyObservers();
     }
 }

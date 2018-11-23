@@ -1,8 +1,10 @@
-package main.java.logic.brick;
-import main.java.logic.Visitable;
+package logic.brick;
+import controller.Game;
+import logic.VisitableBrick;
 import java.util.Observable;
-import main.java.logic.Visitor;
-public abstract class AbstracBrick extends Observable implements Brick, Visitable {
+import logic.VisitorLevel;
+import logic.level.*;
+public abstract class AbstracBrick extends Observable implements Brick, VisitableBrick {
     protected int hitPoints;
     protected int score;
     protected boolean destroyed;
@@ -17,9 +19,10 @@ public abstract class AbstracBrick extends Observable implements Brick, Visitabl
         if(!destroyed){
             hitPoints--;
         }
-        hitPoints--;
-        if (hitPoints==0){
+        if (hitPoints==0) {
             destroyed=true;
+            this.setChanged();
+            this.notifyObservers();
         }
     }
     @Override
@@ -35,5 +38,10 @@ public abstract class AbstracBrick extends Observable implements Brick, Visitabl
         return hitPoints;
     }
 
-    public abstract void accept(Visitor v);
+    public abstract void accept(VisitorLevel v);
+
+    public void suscribe(Level level){
+        addObserver(level);
+    }
+
 }

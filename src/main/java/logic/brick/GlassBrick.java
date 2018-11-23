@@ -1,5 +1,6 @@
-package main.java.logic.brick;
-import main.java.logic.Visitor;
+package logic.brick;
+import controller.Game;
+import logic.VisitorLevel;
 
 public class GlassBrick extends AbstracBrick{
     public GlassBrick(){
@@ -7,7 +8,7 @@ public class GlassBrick extends AbstracBrick{
         hitPoints=1;
         score=50;
     }
-    public void accept(Visitor v){
+    public void accept(VisitorLevel v){
         v.visitGlassBrick(this);
     }
 }
