@@ -9,10 +9,6 @@ public class MetalBrick extends AbstracBrick {
         hitPoints=10;
     }
 
-    public int getScore(){
-        return score;
-    }
-
     @Override
     public void accept(VisitorLevel v) {
         v.visitMetalBrick(this);

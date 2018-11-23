@@ -83,24 +83,27 @@ public abstract class AbstractLevel extends Observable implements Level{
         this.addObserver(game);
     }
 
+    public void setUltimo(String s){
+        ultimo=s;
+    }
     public String getUltimo(){
         return ultimo;
     }
     public void visitGlassBrick(VisitableBrick b){
         actualPoints+= ((Brick)b).getScore();
-        ultimo="glass";
+        this.setUltimo("glass");
         setChanged();
         this.notifyObservers();
     }
     public void visitWoodenBrick(VisitableBrick b){
         actualPoints+= ((Brick)b).getScore();
-        ultimo="wooden";
+        this.setUltimo("wooden");
         setChanged();
         this.notifyObservers();
     }
     public void visitMetalBrick(VisitableBrick b){
         actualPoints+= ((Brick)b).getScore();
-        ultimo="metal";
+        this.setUltimo("metal");
         setChanged();
         this.notifyObservers();
     }

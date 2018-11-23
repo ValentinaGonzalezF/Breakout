@@ -19,10 +19,12 @@ public abstract class AbstracBrick extends Observable implements Brick, Visitabl
         if(!destroyed){
             hitPoints--;
         }
-        if (hitPoints==0) {
-            destroyed=true;
-            this.setChanged();
-            this.notifyObservers();
+        if(hitPoints==0){
+            if(!destroyed) {
+                destroyed = true;
+                this.setChanged();
+                this.notifyObservers();
+            }
         }
     }
     @Override

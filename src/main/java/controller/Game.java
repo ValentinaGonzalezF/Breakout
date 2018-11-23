@@ -13,7 +13,6 @@ public class Game implements Observer{
     protected int balls;
     protected int totalscore;
     protected Level currentLevel;
-    protected int counter;
     protected boolean passfirstlevel;
 
     public Game(int balls) {
@@ -21,7 +20,6 @@ public class Game implements Observer{
         totalscore=0;
         List<Brick> list= new ArrayList<>();
         currentLevel=new NullLevel("",list);
-        counter=0;
         passfirstlevel=false;
     }
 
@@ -33,21 +31,17 @@ public class Game implements Observer{
         List<Brick> lista=new ArrayList<>();
         Random generator = new Random(seed);
         int i=0;
-        int wooden,glaas,metal;
-        wooden=glaas=metal=0;
         while (i!=numberOfBricks){
             double numero= generator.nextDouble();
             if (numero<=probOfGlass){
                 Brick brick;
                 brick= new GlassBrick();
                 lista.add(brick);
-                glaas++;
             }
             else{
                 Brick brick;
                 brick= new WoodenBrick();
                 lista.add(brick);
-                wooden++;
             }
             i++;
         }
@@ -57,7 +51,6 @@ public class Game implements Observer{
                 Brick brick1;
                 brick1 = new MetalBrick();
                 lista.add(brick1);
-                metal++;
             }
             i++;
         }
@@ -70,18 +63,14 @@ public class Game implements Observer{
         List<Brick> lista=new ArrayList<>();
         Random generator = new Random(seed);
         int i=0;
-        int wooden,glaas,metal;
-        wooden=glaas=metal=0;
         while (i!=numberOfBricks){
             Brick brick;
             double numero= generator.nextDouble();
             if (numero<=probOfGlass){
                 brick= new GlassBrick();
-                glaas++;
             }
             else{
                 brick= new WoodenBrick();
-                wooden++;
             }
             lista.add(brick);
             i++;
@@ -248,7 +237,7 @@ public class Game implements Observer{
     public void update(Observable observable, Object o) {
         if(observable instanceof Level) {
             if (((Level)observable).getUltimo()=="metal"){
-                addBall();
+                this.addBall();
             }
 
             if (currentLevel.getPoints()==((AbstractLevel)currentLevel).getActualPoints()){
