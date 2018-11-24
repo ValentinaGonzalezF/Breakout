@@ -9,24 +9,31 @@ public class GlassBrickTest {
     private Brick glassBrick;
 
     @Before
-    public void create(){
+    public void setUp() throws Exception {
         glassBrick=new GlassBrick();
     }
 
     @Test
-    public void isDestroy(){
+    public void isDestroyed(){
         assertFalse(glassBrick.isDestroyed());
         glassBrick.hit();
         assert(glassBrick.isDestroyed());
     }
 
     @Test
-    public void remainingHits(){
-        assertEquals(1, glassBrick.remainingHits());
+    public void hit() {
+        glassBrick.hit();
+        assertEquals(0,glassBrick.remainingHits());
     }
-
 
     @Test
-    public void accept() {
+    public void getScore() {
+        assertEquals(50,glassBrick.getScore());
     }
+
+    @Test
+    public void remainingHits() {
+        assertEquals(1,glassBrick.remainingHits());
+    }
+
 }

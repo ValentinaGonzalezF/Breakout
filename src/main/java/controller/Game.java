@@ -53,7 +53,6 @@ public class Game implements Observer{
             i++;
         }
         Level a= new ClassLevel(name,lista);
-        suscribeAll(a,lista);
         return a;
     }
 
@@ -74,7 +73,6 @@ public class Game implements Observer{
             i++;
         }
         Level a= new ClassLevel(name,lista);
-        suscribeAll(a,lista);
         return a;
     }
     /**
@@ -242,12 +240,6 @@ public class Game implements Observer{
             if(currentLevel.getPoints()==((AbstractLevel)currentLevel).getActualPoints()){
                 this.goNextLevel();
             }
-        }
-    }
-
-    public void suscribeAll(Level level, List<Brick> bricks){
-        for(Brick brick: bricks){
-            brick.suscribe(level);
         }
     }
 }

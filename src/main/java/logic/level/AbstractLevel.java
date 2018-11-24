@@ -25,6 +25,7 @@ public abstract class AbstractLevel extends Observable implements Level{
         actualPoints=0;
         points=this.getPoints();
         ultimo="";
+        this.suscribeAll(list);
     }
 
     public String getName() {
@@ -70,6 +71,12 @@ public abstract class AbstractLevel extends Observable implements Level{
 
     public int getActualPoints() {
         return actualPoints;
+    }
+
+    public void suscribeAll( List<Brick> bricks){
+        for(Brick brick: bricks){
+            brick.suscribe(this);
+        }
     }
 
     public void update(Observable observable, Object o) {

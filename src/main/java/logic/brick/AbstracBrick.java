@@ -4,6 +4,7 @@ import logic.VisitableBrick;
 import java.util.Observable;
 import logic.VisitorLevel;
 import logic.level.*;
+
 public abstract class AbstracBrick extends Observable implements Brick, VisitableBrick {
     protected int hitPoints;
     protected int score;

@@ -27,6 +27,7 @@ public class NullLevel extends AbstractLevel{
 
     @Override
     public Level addPlayingLevel(Level level) {
+        nextLevel=level;
         return level;
     }
 
@@ -35,8 +36,4 @@ public class NullLevel extends AbstractLevel{
         nextLevel=level;
     }
 
-    @Override
-    public void update(Observable observable, Object o) {
-
-    }
 }

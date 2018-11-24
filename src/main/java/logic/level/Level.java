@@ -11,6 +11,10 @@ import java.util.Observer;
  */
 public interface Level extends Observer,VisitorLevel {
 
+    public void setUltimo(String s);
+
+    public int getActualPoints();
+
     String getUltimo();
     /**
      * Gets the level's name. Each level must have a name.

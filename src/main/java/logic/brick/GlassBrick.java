@@ -8,6 +8,7 @@ public class GlassBrick extends AbstracBrick{
         hitPoints=1;
         score=50;
     }
+    @Override
     public void accept(VisitorLevel v){
         v.visitGlassBrick(this);
     }
