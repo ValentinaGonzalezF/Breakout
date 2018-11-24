@@ -153,7 +153,7 @@ public class Game implements Observer{
      */
     public void setCurrentLevel(Level level) {
         currentLevel=level;
-        ((AbstractLevel)currentLevel).addObserver(this);
+        ((AbstractLevel)currentLevel).suscribe(this);
     }
 
     /**

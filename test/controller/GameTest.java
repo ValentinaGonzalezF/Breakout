@@ -50,6 +50,18 @@ public class GameTest {
         assertEquals(3,game.getBallsLeft());
         game.addBall();
         assertEquals(4,game.getBallsLeft());
+        game.setCurrentLevel(level3);
+        b.hit();
+        b.hit();
+        b.hit();
+        b.hit();
+        b.hit();
+        b.hit();
+        b.hit();
+        b.hit();
+        b.hit();
+        b.hit();
+        assertEquals(5,game.getBallsLeft());
     }
 
     @Test
@@ -86,7 +98,7 @@ public class GameTest {
     @Test
     public void hasNextLevel() {
         assertFalse(game.currentLevel.hasNextLevel());
-        level2 = game.newLevelWithBricksNoMetal("Level 3", 5,1,seed);
+        level2 = game.newLevelWithBricksFull("Level 3", 5,0.4,0,seed);
         game.addPlayingLevel(level2);
         assertFalse(game.hasNextLevel());
     }
@@ -103,7 +115,7 @@ public class GameTest {
     @Test
     public void hasCurrentLevel() {
         assertFalse(game.hasCurrentLevel());
-        level2 = game.newLevelWithBricksNoMetal("Level 3", 5,1,seed);
+        level2 = game.newLevelWithBricksFull("Level 3", 5,0.1,1,seed);
         game.addPlayingLevel(level2);
         assert(game.hasCurrentLevel());
     }
@@ -126,7 +138,7 @@ public class GameTest {
     public void setCurrentLevel() {
         game.setCurrentLevel(level);
         assertEquals(level,game.currentLevel);
-        level2 = game.newLevelWithBricksNoMetal("Level 3", 5,1,seed);
+        level2 = game.newLevelWithBricksNoMetal("Level 3", 5,0.4,seed);
         game.setCurrentLevel(level2);
         assertEquals(level2,game.getCurrentLevel());
     }
@@ -149,12 +161,9 @@ public class GameTest {
     @Test
     public void getCurrentPoints() {
         assertEquals(0,game.getCurrentPoints());
-
-
-
-
-
-
+        game.setCurrentLevel(level3);
+        a.hit();
+        assertEquals(50,game.getCurrentPoints());
     }
 
     @Test
@@ -171,24 +180,27 @@ public class GameTest {
 
     @Test
     public void isGameOver() {
+        assertFalse(game.isGameOver());
         game.dropBall();
         game.dropBall();
         game.dropBall();
+        assert(game.isGameOver());
+
+        game.addBall();
+        game.setCurrentLevel(level4);
+        d.hit();
+        d.hit();
+        d.hit();
         assert(game.isGameOver());
     }
 
     @Test
     public void winner() {
         assertFalse(game.winner());
-
-
-
-
-    }
-
-    @Test
-    public void update() {
-
-
+        game.setCurrentLevel(level4);
+        d.hit();
+        d.hit();
+        d.hit();
+        assert(game.winner());
     }
 }
