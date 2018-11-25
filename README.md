@@ -1,1 +1,4 @@
 # cc3002-breakout
+En esta tarea se implementó la logica del juego Breakout. En este juego hay primero Bricks, los cuales pueden ser de tres tipos Wooden,Glass o Metal, por lo que se optó por implementar una interfaz llamado Brick que tuviera todos los metodos comunes entre estos tipo de Bricks, luego se creó una clase abstracta Brick la cual seria el padre de las clases WoodenBrick, MetalBrick y GlassBrick. A esta clase padre se le implemento la interfez y a las Clases MetalBrick, GlassBrick y WoodenBrick, son una extension de la clase AbstractBrick. 
+
+Luego estan los niveles, en el cual se nos da una interfaz Level, por lo que se decidió implementar una clase AbstractLevel que implementaba esta interfaz para implementar los métodos pedidos. Luego me di cuenta que habian dos tipos de niveles, los normales y los que son null, para eso me base en el NullPatern 
