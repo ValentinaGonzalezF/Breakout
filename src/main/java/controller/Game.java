@@ -7,19 +7,25 @@ import java.util.*;
  * Game logic controller class.
  *
  * @author Juan-Pablo Silva
+ * @author vale
  */
 public class Game implements Observer{
     protected int balls;
     protected int totalscore;
     protected Level currentLevel;
-
+    /**
+     * Constructor de la clase Game
+     * @param balls , que es la cantidad de pelotas que se tendran al partir el juego
+     * Se inicializa el atributo balls con el parametro que se recibe, luego el totalscore
+     * se inicializa en 0, tal como la lista del currentLevel como vacia y el currentLevel como
+     * un NullLevel con nombre "".
+     */
     public Game(int balls) {
         this.balls=balls;
         totalscore=0;
         List<Brick> list= new ArrayList<>();
         currentLevel=new NullLevel("",list);
     }
-
     /**
      * Agrega una nueva ball al juego.
      */
@@ -27,6 +33,20 @@ public class Game implements Observer{
         balls++;
     }
 
+    /**
+     * Crea un nivel con los tres tipos de Bricks
+     * @param name , sera el nombre del nivel
+     * @param numberOfBricks, sera la cantidad minima de bricks que se tendran
+     * @param probOfGlass, probabilidad de obtener un glass
+     * @param seed , semilla que permite obtener numeros
+     * @return Level a, nuevo nivel creado
+     * Empieza con una lista vacia, luego crea un generador que ira entregando los numeros random
+     * que permite la semilla, luego mientras no se tenga la cantidad de brick pedidos, se haran
+     * brick de glass y/o wooden segun lo indique la probabilidad y se iran agregando a la lista.
+     * Luego realiza lo mismo pero de forma separada en otro while para obtener los metalBrick que
+     * estaran en el nivel, agregandolos a la lista.
+     * Finalmente crea y retorna el nivel con la lista y el nombre con el parametro name
+     */
     public Level newLevelWithBricksFull(String name, int numberOfBricks, double probOfGlass, double probOfMetal, int seed) {
         List<Brick> lista=new ArrayList<>();
         Random generator = new Random(seed);
@@ -58,6 +78,18 @@ public class Game implements Observer{
         return a;
     }
 
+    /**
+     * Crea un nivel con dos tipos de Bricks, los GlassBrick y WoodenBrick.
+     * @param name , sera el nombre del nivel
+     * @param numberOfBricks, sera la cantidad minima de bricks que se tendran
+     * @param probOfGlass, probabilidad de obtener un glass
+     * @param seed , semilla que permite obtener numeros
+     * @return Level a, nuevo nivel creado
+     * Empieza con una lista vacia, luego crea un generador que ira entregando los numeros random
+     * que permite la semilla, luego mientras no se tenga la cantidad de brick pedidos, se haran
+     * brick de glass y/o wooden segun lo indique la probabilidad y se iran agregando a la lista.
+     * Finalmente crea y retorna el nivel con la lista y el nombre con el parametro name
+     */
     public Level newLevelWithBricksNoMetal(String name, int numberOfBricks, double probOfGlass, int seed) {
         List<Brick> lista=new ArrayList<>();
         Random generator = new Random(seed);
@@ -79,8 +111,8 @@ public class Game implements Observer{
     }
     /**
      * Gets the number of {@link Brick} in the current level, that are still not destroyed
-     *
-     *
+     * For each brick in the list of brick that has current level, check if the brick is
+     * still alive. If it's alive, increase alive counter.
      * @return the number of intact bricks in the current level
      */
     public int numberOfBricks() {
@@ -112,7 +144,8 @@ public class Game implements Observer{
     }
 
     /**
-     * Pass to the next level of the current {@link Level}. Ignores all conditions and skip to the next level.
+     * Pass to the next level of the current {@link Level}. Before to do that, totalscore
+     * increase the points of the currentLevel
      */
     public void goNextLevel() {
         totalscore+=((AbstractLevel)currentLevel).getActualPoints();
@@ -207,7 +240,7 @@ public class Game implements Observer{
 
     /**
      * Checks whether the game is over or not. A game is over when the number of available balls are 0 or the player won the game.
-     *
+     * Otherwise, return false
      * @return true if the game is over, false otherwise
      */
     public boolean isGameOver() {
@@ -218,11 +251,10 @@ public class Game implements Observer{
         return false;
     }
     /**
-     * This method is just an example. Change it or delete it at wish.
-     * <p>
      * Checks whether the game has a winner or not
-     *
      * @return true if the game has a winner, false otherwise
+     * if the currentLevel is playable and the totalscore>0, this means the gamer won, so return true.
+     * Otherwise return false
      */
     public boolean winner() {
        if (!currentLevel.isPlayableLevel() && totalscore>0){
@@ -233,6 +265,15 @@ public class Game implements Observer{
         }
     }
 
+    /**
+     * Metodo update que permite actualizar el juego al ser notificado por el level que un
+     * brick se destruyo. En este momento, verifica si el que le notifico fue un Level. Si es asi
+     * ve si el ultimo Brick fue metal. Si lo fue, agrega una pelota al juego.
+     * Luego revisa si los puntos actuales del currentlevel son iguales a los puntos que se pueden
+     * obtener. De ser asi, pasa de nivel.
+     * @param observable es el objeto que estaba observando
+     * @param o objeto que recibe que puede contener informacion
+     */
     @Override
     public void update(Observable observable, Object o) {
         if(observable instanceof Level) {
