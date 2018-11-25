@@ -11,11 +11,6 @@ import java.util.Observer;
  */
 public interface Level extends Observer,VisitorLevel {
 
-    public void setUltimo(String s);
-
-    public int getActualPoints();
-
-    String getUltimo();
     /**
      * Gets the level's name. Each level must have a name.
      *
@@ -78,8 +73,35 @@ public interface Level extends Observer,VisitorLevel {
      * @param level the next level of a level object
      */
     void setNextLevel(Level level);
+    /**
+     * Método que visita un GlassBrick,el que es un tipo Visitable
+     * @param b es el objeto que visitará
+     */
+     void visitGlassBrick(VisitableBrick b);
+    /**
+     * Método que visita un WoodenBrick, el que es un tipo Visitable
+     * @param b es el objeto que visitará
+     */
+    void visitWoodenBrick(VisitableBrick b);
+    /**
+     *Método que visita un MetalBrick,el que es un tipo Visitable
+     * @param b  es el objeto que visitará
+     */
+    void visitMetalBrick(VisitableBrick b);
+    /**
+     * Método que permite setear el ultimo Brick que se destruyo como s
+     * @param s que es el numero string
+     */
+    void setUltimo(String s);
 
-    public void visitGlassBrick(VisitableBrick b);
-    public void visitWoodenBrick(VisitableBrick b);
-    public void visitMetalBrick(VisitableBrick b);
+    /**
+     * Método que permite obtener los ActualPoints del level
+     * @return actualPoints
+     */
+    int getActualPoints();
+    /**
+     * Método que permite obtener el ultimo Brick que se destruyo
+     * @return ultimo
+     */
+    String getUltimo();
 }

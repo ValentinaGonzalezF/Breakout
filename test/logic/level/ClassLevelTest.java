@@ -14,12 +14,12 @@ public class ClassLevelTest {
     private List<Brick> lista;
     private List<Brick> l;
     private List<Brick> l1;
-    private AbstracBrick a;
-    private AbstracBrick b;
-    private AbstracBrick c;
+    private AbstractBrick a;
+    private AbstractBrick b;
+    private AbstractBrick c;
     private Level otroLevel;
     private Level brickLevel;
-    private AbstracBrick e;
+    private AbstractBrick e;
 
     @Before
     public void setUp() throws Exception {

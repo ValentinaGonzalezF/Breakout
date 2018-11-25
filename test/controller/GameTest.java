@@ -18,10 +18,10 @@ public class GameTest {
     private Level level2;
     private Level level3;
     private List<Brick> lista2;
-    private AbstracBrick a;
-    private AbstracBrick b;
-    private AbstracBrick c;
-    private AbstracBrick d;
+    private AbstractBrick a;
+    private AbstractBrick b;
+    private AbstractBrick c;
+    private AbstractBrick d;
     private Level level4;
     private List<Brick> lista3;
 

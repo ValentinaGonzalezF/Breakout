@@ -1,5 +1,5 @@
 package logic.brick;
-
+import logic.VisitableBrick;
 import logic.level.Level;
 
 /**
@@ -9,7 +9,7 @@ import logic.level.Level;
  *
  * @author Juan-Pablo Silva
  */
-public interface Brick{
+public interface Brick extends VisitableBrick {
     /**
      * Defines that a brick has been hit.
      * Implementations should consider the events that a hit to a brick can trigger.
@@ -36,6 +36,9 @@ public interface Brick{
      * @return the remaining hits to destroy de brick
      */
     int remainingHits();
-
-    public void suscribe(Level level);
+    /**
+     * Método que permite agrega un level a la lista de observadores que tiene un brick
+     * @param level es el level que se añadirá a la lista.
+     */
+    void subscribe(Level level);
 }

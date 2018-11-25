@@ -13,8 +13,8 @@ public class NullLevelTest {
     private Level level;
     private List<Brick> lista;
     private List<Brick> l;
-    private AbstracBrick a;
-    private AbstracBrick b;
+    private AbstractBrick a;
+    private AbstractBrick b;
     private Level brickLevel;
     @Before
     public void setUp() throws Exception {

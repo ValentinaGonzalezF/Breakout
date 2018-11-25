@@ -1,5 +1,4 @@
 package controller;
-
 import logic.brick.*;
 import logic.level.Level;
 import logic.level.*;
@@ -21,6 +20,9 @@ public class Game implements Observer{
         currentLevel=new NullLevel("",list);
     }
 
+    /**
+     * Agrega una nueva ball al juego.
+     */
     public void addBall(){
         balls++;
     }
@@ -147,13 +149,14 @@ public class Game implements Observer{
 
     /**
      * Sets a {@link Level} as the current playing level.
-     *
+     * And subscribe game in the list of observers that
+     * currentLevel has.
      * @param level the level to be used as the current level
      * @see Level
      */
     public void setCurrentLevel(Level level) {
         currentLevel=level;
-        ((AbstractLevel)currentLevel).suscribe(this);
+        ((AbstractLevel)currentLevel).subscribe(this);
     }
 
     /**
