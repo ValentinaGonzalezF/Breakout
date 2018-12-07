@@ -2,6 +2,7 @@ package graphics;
 
 import com.almasb.fxgl.app.GameApplication;
 import com.almasb.fxgl.entity.Entity;
+import com.almasb.fxgl.entity.components.CollidableComponent;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
 import com.almasb.fxgl.physics.CollisionHandler;
@@ -10,9 +11,7 @@ import com.almasb.fxgl.settings.GameSettings;
 import javafx.scene.NodeBuilder;
 import javafx.scene.input.KeyCode;
 
-import static graphics.ExampleGameFactory.newBackground;
-import static graphics.ExampleGameFactory.newBall;
-import static graphics.ExampleGameFactory.newPlayer;
+import static graphics.ExampleGameFactory.*;
 
 
 public class BasicApp extends GameApplication {
@@ -23,13 +22,11 @@ public class BasicApp extends GameApplication {
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.setWidth(800);
         gameSettings.setHeight(800);
-        gameSettings.setTitle("Break Out");
+        gameSettings.setTitle("BreakOut");
         gameSettings.setVersion("");
     }
 
-    public static void main(String... args) {
-        launch(args);
-    }
+
     @Override
     protected void initPhysics() {
         getPhysicsWorld().setGravity(0,0);
@@ -38,9 +35,9 @@ public class BasicApp extends GameApplication {
                     @Override
                     protected void onHitBoxTrigger(Entity ball, Entity wall,
                                                    HitBox boxBall, HitBox boxWall) {
-                        if (boxWall.getName().equals("BOT")) {
-                            ball.removeFromWorld();
-                        }
+                        //if (boxWall.getName().equals("BOT")) {
+                            //ball.removeFromWorld();
+                        //}
                     }
                 });
     }
@@ -48,8 +45,11 @@ public class BasicApp extends GameApplication {
     protected void initGame() {
         Entity bg= newBackground();
         player = newPlayer(350, 550);
+        player.addComponent(new CollidableComponent(true));
+        Entity top=newWalls();
         Entity ba=newBall(350,200);
-        getGameWorld().addEntities(bg,player,ba);
+
+        getGameWorld().addEntities(bg,player,ba,top);
     }
 
     @Override
@@ -59,7 +59,7 @@ public class BasicApp extends GameApplication {
             @Override
             protected void onAction() {
                 getGameWorld().getEntitiesByType(ExampleType.PLAYER)
-                        .forEach(e -> e.translateX(5));
+                        .forEach(e -> e.translateX(1));
             }
         }, KeyCode.RIGHT);
 
@@ -67,10 +67,13 @@ public class BasicApp extends GameApplication {
             @Override
             protected void onAction() {
                 getGameWorld().getEntitiesByType(ExampleType.PLAYER)
-                        .forEach(e -> e.translateX(-5));
+                        .forEach(e -> e.translateX(-1));
             }
         }, KeyCode.LEFT);
 
+    }
+    public static void main(String... args) {
+        launch(args);
     }
 
 

@@ -33,15 +33,16 @@ public final class ExampleGameFactory {
         PhysicsComponent physics = new PhysicsComponent();
         physics.setBodyType(BodyType.DYNAMIC);
         physics.setOnPhysicsInitialized(
-                () -> physics.setLinearVelocity(5 * 40, 0));
+                () -> physics.setLinearVelocity(5 * 15, -5*15));
         physics.setFixtureDef(
                 new FixtureDef().restitution(1f).density(0.1f));
+
         return Entities.builder()
                 .at(x, y)
                 .type(BasicApp.ExampleType.BALL)
                 .bbox(new HitBox("Ball", BoundingShape.circle(10)))
                 .viewFromNode(new Circle(10, Color.LIGHTCORAL))
-                .with(physics,new CollidableComponent(true))
+                .with(physics, new CollidableComponent(true))
                 .build();
     }
 
