@@ -41,4 +41,11 @@ public interface Brick extends VisitableBrick {
      * @param level es el level que se añadirá a la lista.
      */
     void subscribe(Level level);
+
+    boolean isWooden();
+
+    boolean isMetal();
+
+    boolean isGlass();
+
 }

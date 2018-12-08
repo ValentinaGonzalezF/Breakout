@@ -27,4 +27,19 @@ public class MetalBrick extends AbstractBrick {
     public void accept(VisitorLevel v) {
         v.visitMetalBrick(this);
     }
+
+    @Override
+    public boolean isWooden() {
+        return false;
+    }
+
+    @Override
+    public boolean isMetal() {
+        return true;
+    }
+
+    @Override
+    public boolean isGlass() {
+        return false;
+    }
 }

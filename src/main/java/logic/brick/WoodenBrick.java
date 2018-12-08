@@ -24,4 +24,19 @@ public class WoodenBrick extends AbstractBrick {
     public void accept(VisitorLevel v){
         v.visitWoodenBrick(this);
     }
+
+    @Override
+    public boolean isWooden() {
+        return true;
+    }
+
+    @Override
+    public boolean isMetal() {
+        return false;
+    }
+
+    @Override
+    public boolean isGlass() {
+        return false;
+    }
 }

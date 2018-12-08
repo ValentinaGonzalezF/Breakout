@@ -82,4 +82,10 @@ public abstract class AbstractBrick extends Observable implements Brick{
     public void subscribe(Level level){
         addObserver(level);
     }
+
+    public abstract boolean isWooden();
+
+    public abstract boolean isMetal();
+
+    public abstract boolean isGlass();
 }
