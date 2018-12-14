@@ -21,9 +21,16 @@ public class PlayerControl extends Component {
         physics.setVelocityX(d);
     }
 
+    public boolean getPlayerWallRight() {
+        return playerWallRight;
+    }
+    public boolean getPlayerWallLeft(){
+        return playerWallLeft;
+    }
+
     public void left() {
         if (!playerWallLeft){
-            physics.setVelocityX(-70);
+            physics.setVelocityX(-130);
             if(playerWallRight){
                 playerWallRight=false;
             }
@@ -31,7 +38,7 @@ public class PlayerControl extends Component {
     }
     public void right() {
         if (!playerWallRight){
-            physics.setVelocityX(70);
+            physics.setVelocityX(130);
             if(playerWallLeft){
                 playerWallLeft=false;
             }

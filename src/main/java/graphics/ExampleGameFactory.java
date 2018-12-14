@@ -8,6 +8,7 @@ import com.almasb.fxgl.physics.HitBox;
 import com.almasb.fxgl.physics.PhysicsComponent;
 import com.almasb.fxgl.physics.box2d.dynamics.BodyType;
 import com.almasb.fxgl.physics.box2d.dynamics.FixtureDef;
+import logic.brick.Brick;
 
 import java.util.ArrayList;
 
@@ -29,7 +30,7 @@ public final class ExampleGameFactory {
 
     public static Entity newBackground() {
         return Entities.builder()
-                .viewFromTexture("f4.png")
+                .viewFromTexture("fd.png")
                 .renderLayer(RenderLayer.BACKGROUND)
                 .build();
     }
@@ -37,8 +38,7 @@ public final class ExampleGameFactory {
     public static Entity newBall(double x, double y) {
         PhysicsComponent physics = new PhysicsComponent();
         physics.setBodyType(BodyType.DYNAMIC);
-        physics.setFixtureDef(
-                new FixtureDef().restitution(1f).density(0.1f).friction(0f));
+        physics.setFixtureDef(new FixtureDef().restitution(1f).density(0.3f).friction(0f));
 
         return Entities.builder()
                 .at(x, y)
@@ -56,41 +56,15 @@ public final class ExampleGameFactory {
         return walls;
     }
 
-    public static Entity newBrickGlass(double x,double y) {
+    public static Entity newBrick(double x, double y, String s, Brick b) {
         return Entities.builder()
                 .at(x,y)
                 .type(BasicApp.ExampleType.BRICK)
-                .viewFromTexture("glass.png")
+                .viewFromTexture(s)
                 .bbox(new HitBox("BrickGlass", BoundingShape.box(100, 30)))
                 .with(new PhysicsComponent(), new CollidableComponent(true))
+                .with(new BrickComponent(b))
                 .build();
     }
 
-    public static Entity newBrickWooden(double x,double y) {
-        return Entities.builder()
-                .at(x,y)
-                .type(BasicApp.ExampleType.BRICK)
-                .viewFromTexture("wood.png")
-                .bbox(new HitBox("BrickWooden", BoundingShape.box(100, 30)))
-                .with(new PhysicsComponent(), new CollidableComponent(true))
-                .build();
-    }
-
-    public static Entity newBrickMetal(double x,double y) {
-        return Entities.builder()
-                .at(x,y)
-                .type(BasicApp.ExampleType.BRICKMETAL)
-                .viewFromTexture("metal.png")
-                .bbox(new HitBox("BrickMetal", BoundingShape.box(100, 30)))
-                .with(new PhysicsComponent(), new CollidableComponent(true))
-                .build();
-    }
-
-    public static Entity newLevel(ArrayList<Entity> bricks){
-
-        return Entities.builder()
-                .type(BasicApp.ExampleType.LEVEL)
-                .build();
-
-    }
 }
