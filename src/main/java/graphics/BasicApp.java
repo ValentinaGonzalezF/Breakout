@@ -16,6 +16,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import logic.brick.Brick;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -23,17 +25,20 @@ import java.util.Map;
 
 import static graphics.ExampleGameFactory.*;
 
-
 public class BasicApp extends GameApplication {
-    private Text gameOver;
+    private Text gameOver,win;
     private boolean initMovement=false;
     private boolean initContact=true;
     private Entity player;
     private Entity ball;
     private PlayerControl playerControl;
     private HomeworkTwoFacade facade;
+    private boolean level=false;
+    private int contadorLevel=1;
+    private Text nlevel,totalscor;
+    private List<Entity> listEntitiesLevel;
     public enum ExampleType {
-        PLAYER,BALL,WALL,BRICK,LEVEL
+        PLAYER,BALL,WALL,BRICK
     }
     protected void initSettings(GameSettings gameSettings) {
         gameSettings.setWidth(1000);
@@ -54,10 +59,7 @@ public class BasicApp extends GameApplication {
                             facade.dropBall();
                             getGameState().setValue("lives", facade.getBallsLeft());
                             if(facade.getBallsLeft()>0){
-                                ball=newBall(player.getX()+50,player.getY()-3);
-                                getGameWorld().addEntity(ball);
-                                initMovement=false;
-                                initContact=true;
+                                initBall();
                             }
                             else{
                                 getGameScene().addUINode(gameOver);
@@ -87,15 +89,34 @@ public class BasicApp extends GameApplication {
         getPhysicsWorld().addCollisionHandler(
                 new CollisionHandler(ExampleType.BALL, ExampleType.BRICK) {
                     @Override
-                    protected void onHitBoxTrigger(Entity ball, Entity brick,
+                    protected void onHitBoxTrigger(Entity ball, Entity brick1,
                                                    HitBox boxBall, HitBox boxBrick) {
                         getAudioPlayer().playSound("Block_Destroy.wav");
-                        brick.getComponent(BrickComponent.class).getComponent().hit();
-                        if(brick.getComponent(BrickComponent.class).getComponent().remainingHits()==0) {
-                            brick.removeFromWorld();
-                            getGameState().setValue("score", facade.getCurrentPoints());
+
+                        brick1.getComponent(BrickComponent.class).getComponent().hit();
+                        if(brick1.getComponent(BrickComponent.class).getComponent().remainingHits()==0) {
+                            brick1.removeFromWorld();
+
+                            listEntitiesLevel.remove(brick1);
+                            getGameState().setValue("score", facade.getCurrentLevel().getActualPoints());
+                            getGameState().setValue("totalscore", facade.getCurrentPoints());
                             getGameState().setValue("lives", facade.getBallsLeft());
                         }
+                        if(facade.winner()){
+                            getGameScene().addUINode(win);
+                        }
+
+                        if(facade.getCurrentLevel().getActualPoints()==0 && listEntitiesLevel.size()==0){// nivel acabo
+
+                            createLevel(facade.getBricks());
+                            for (Entity en : listEntitiesLevel) {
+                                getGameWorld().addEntity(en);
+                            }
+                            getGameState().setValue("nlevel", Integer.parseInt(facade.getLevelName()));
+                            getGameWorld().removeEntity(ball);
+                            initBall();
+                        }
+
                     }
                 });
 
@@ -181,18 +202,28 @@ public class BasicApp extends GameApplication {
                 double probB= Math.random();
                 double nivel=Math.random();
                 if(nivel>0.5){
-                    int numberOfB=(int)( Math.random() * (75 - 70+ 1 ) ) + 70;
+                    //int numberOfB=(int)( Math.random() * (75 - 70+ 1 ) ) + 70;
+                    int numberOfB=(int)( Math.random() * (8 - 7+ 1 ) ) + 7;
                     double probM= Math.random();
-                    facade.setCurrentLevel(facade.newLevelWithBricksFull("1",numberOfB,probB,probM,seed));
+                    facade.addPlayingLevel(facade.newLevelWithBricksFull(Integer.toString(contadorLevel),numberOfB,probB,probM,seed));
                 }
                 else{
-                    int numberOfB=(int)( Math.random() * (80 - 70+ 1 ) ) + 70;
-                    facade.setCurrentLevel(facade.newLevelWithBricksNoMetal("1",numberOfB,probB,seed));
+                    //int numberOfB=(int)( Math.random() * (80 - 70+ 1 ) ) + 70;
+                    int numberOfB=(int)( Math.random() * (8 - 7+ 1 ) ) + 7;
+                    facade.addPlayingLevel(facade.newLevelWithBricksNoMetal(Integer.toString(contadorLevel),numberOfB,probB,seed));
                 }
-                List<Entity> listE =createLevel(facade.getBricks());
-                for(Entity en:listE){
-                    getGameWorld().addEntity(en);
+
+                if(!level) {
+                    level=true;
+                    createLevel(facade.getBricks());
+                    for (Entity en : listEntitiesLevel) {
+                        getGameWorld().addEntity(en);
+                    }
                 }
+                contadorLevel++;
+                getGameState().setValue("nlevel", Integer.parseInt(facade.getLevelName()));
+
+
             }
         }, KeyCode.N);
     }
@@ -210,10 +241,24 @@ public class BasicApp extends GameApplication {
 
         Text textScore = new Text("SCORE");
         textScore.setFont(fontText);
-        textScore.setTranslateX(350);
+        textScore.setTranslateX(230);
         textScore.setTranslateY(50);
         textScore.setFill(Color.WHITE);
         getGameScene().addUINode(textScore);
+
+        Text textTotalScore = new Text("TOTALSCORE");
+        textTotalScore.setFont(fontText);
+        textTotalScore.setTranslateX(480);
+        textTotalScore.setTranslateY(50);
+        textTotalScore.setFill(Color.WHITE);
+        getGameScene().addUINode(textTotalScore);
+
+        Text numerolevel = new Text("LEVEL");
+        numerolevel.setFont(fontText);
+        numerolevel.setTranslateX(830);
+        numerolevel.setTranslateY(50);
+        numerolevel.setFill(Color.WHITE);
+        getGameScene().addUINode(numerolevel);
 
         gameOver = new Text("GAMEOVER");
         gameOver.setFont(fontText1);
@@ -221,10 +266,16 @@ public class BasicApp extends GameApplication {
         gameOver.setTranslateY(450);
         gameOver.setFill(Color.WHITE);
 
+        win = new Text("YOU WIN");
+        win.setFont(fontText1);
+        win.setTranslateX(100);
+        win.setTranslateY(450);
+        win.setFill(Color.WHITE);
+
         Text tscore = getUIFactory().newText("", Color.WHITE, 40);
         tscore.setFont(fontText);
         tscore.setTranslateY(50);
-        tscore.setTranslateX(480);
+        tscore.setTranslateX(350);
         tscore.textProperty().bind(getGameState().intProperty("score").asString());
         getGameScene().addUINode(tscore);
 
@@ -234,15 +285,32 @@ public class BasicApp extends GameApplication {
         text.setTranslateX(170);
         text.textProperty().bind(getGameState().intProperty("lives").asString());
         getGameScene().addUINode(text);
+
+        nlevel = getUIFactory().newText("", Color.WHITE, 40);
+        nlevel.setFont(fontText);
+        nlevel.setTranslateY(50);
+        nlevel.setTranslateX(950);
+        nlevel.textProperty().bind(getGameState().intProperty("nlevel").asString());
+        getGameScene().addUINode(nlevel);
+
+        totalscor = getUIFactory().newText("", Color.WHITE, 40);
+        totalscor.setFont(fontText);
+        totalscor.setTranslateY(50);
+        totalscor.setTranslateX(700);
+        totalscor.textProperty().bind(getGameState().intProperty("totalscore").asString());
+        getGameScene().addUINode(totalscor);
+
     }
 
     @Override
     protected void initGameVars(Map<String, Object> vars) {
         vars.put("lives", 3);
         vars.put("score", 0);
+        vars.put("nlevel",0);
+        vars.put("totalscore",0);
     }
 
-    public static List createLevel(List <Brick> listBrick){
+    public void createLevel(List <Brick> listBrick){
         String glass="glass.png";
         String metal="metal.png";
         String wooden="wood.png";
@@ -268,7 +336,15 @@ public class BasicApp extends GameApplication {
             listBrickEntities.add(newBrick(x, y,s,brick));
             x += dx;
         }
-        return listBrickEntities;
+        listEntitiesLevel=listBrickEntities;
+    }
+    public void initBall(){
+        //getGameWorld().removeEntity(ball);
+        ball=newBall(player.getX()+50,player.getY()-3);
+        getGameWorld().addEntity(ball);
+        initMovement=false;
+        initContact=true;
+
     }
 
     public static void main(String... args) {

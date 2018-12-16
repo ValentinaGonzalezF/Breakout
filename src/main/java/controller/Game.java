@@ -199,6 +199,8 @@ public class Game implements Observer{
      */
     public void addPlayingLevel(Level level){
         currentLevel=currentLevel.addPlayingLevel(level);
+        ((AbstractLevel)currentLevel).subscribe(this);
+
     }
     /**
      * Gets the number of points required to pass to the next level. Gets the points obtainable in the current {@link Level}.
