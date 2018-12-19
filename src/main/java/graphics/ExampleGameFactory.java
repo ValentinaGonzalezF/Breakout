@@ -38,7 +38,7 @@ public final class ExampleGameFactory {
     public static Entity newBall(double x, double y) {
         PhysicsComponent physics = new PhysicsComponent();
         physics.setBodyType(BodyType.DYNAMIC);
-        physics.setFixtureDef(new FixtureDef().restitution(1f).density(0.3f).friction(0f));
+        physics.setFixtureDef(new FixtureDef().restitution(1f).friction(0f));
 
         return Entities.builder()
                 .at(x, y)
