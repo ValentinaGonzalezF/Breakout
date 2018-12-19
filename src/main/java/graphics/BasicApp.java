@@ -1,7 +1,6 @@
 package graphics;
 
 import com.almasb.fxgl.app.GameApplication;
-import com.almasb.fxgl.core.math.Vec2;
 import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.input.Input;
 import com.almasb.fxgl.input.UserAction;
@@ -16,9 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import logic.brick.Brick;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
-
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -379,7 +375,7 @@ public class BasicApp extends GameApplication {
                 s=metal;
             }
             else{//nuevo brick
-
+                s=metal;//no aun
             }
             listBrickEntities.add(newBrick(x, y,s,brick));
             x += dx;
