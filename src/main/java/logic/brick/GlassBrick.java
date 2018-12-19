@@ -25,18 +25,13 @@ public class GlassBrick extends AbstractBrick{
         v.visitGlassBrick(this);
     }
 
-    @Override
-    public boolean isWooden() {
-        return false;
-    }
-
-    @Override
-    public boolean isMetal() {
-        return false;
-    }
-
+    /**
+     * Método que permite saber si el brick es de tipo Glass
+     * @ return true si es Glass y false en cualquier otro caso.
+     */
     @Override
     public boolean isGlass() {
         return true;
     }
+
 }

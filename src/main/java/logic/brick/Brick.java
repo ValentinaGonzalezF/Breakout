@@ -42,10 +42,28 @@ public interface Brick extends VisitableBrick {
      */
     void subscribe(Level level);
 
+    /**
+     * Método que permite saber si el brick es de tipo Wooden
+     * @ return true si es Wooden y false en cualquier otro caso.
+     */
     boolean isWooden();
 
+    /**
+     * Método que permite saber si el brick es de tipo Metal
+     * @ return true si es Metal y false en cualquier otro caso.
+     */
     boolean isMetal();
 
+    /**
+     * Método que permite saber si el brick es de tipo Glass
+     * @ return true si es Glass y false en cualquier otro caso.
+     */
     boolean isGlass();
+
+    /**
+     * Método que permite saber si el brick es de tipo Golden
+     * @ return true si es golden y false en cualquier otro caso.
+     */
+    boolean isGolden();
 
 }

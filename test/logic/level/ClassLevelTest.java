@@ -34,15 +34,15 @@ public class ClassLevelTest {
         lista.add(b);
         lista.add(c);
         l1.add(e);
-        level=new ClassLevel("", lista);
+        level=new ClassLevel("0", lista);
         otroLevel=new NullLevel("",l);
-        brickLevel=new ClassLevel("n",l1);
+        brickLevel=new ClassLevel("",l1);
 
     }
 
     @Test
     public void getName() {
-        assertEquals("",level.getName());
+        assertEquals("0",level.getName());
     }
 
     @Test
@@ -114,18 +114,16 @@ public class ClassLevelTest {
 
     @Test
     public void setUltimo() {
-        level.setUltimo("glass");
-        assertEquals("glass",level.getUltimo());
-        level.setUltimo("wooden");
-        assertEquals("wooden",level.getUltimo());
+        level.setUltimo(new GlassBrick());
+        assert(level.getUltimo().isGlass());
+        level.setUltimo(new WoodenBrick());
+        assert(level.getUltimo().isWooden());
     }
 
     @Test
     public void getUltimo() {
-        level.setUltimo("metal");
-        assertNotEquals("wooden",level.getUltimo());
-        level.setUltimo("wooden");
-        assertEquals("wooden",level.getUltimo());
+        level.setUltimo(new WoodenBrick());
+        assert(level.getUltimo().isWooden());
     }
 
 }

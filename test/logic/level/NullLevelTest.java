@@ -81,17 +81,4 @@ public class NullLevelTest {
         assertEquals(0,level.getActualPoints());
     }
 
-
-    @Test
-    public void setUltimo() {
-        level.setUltimo("");
-        assertEquals("",level.getUltimo());
-    }
-
-    @Test
-    public void getUltimo() {
-        level.setUltimo(" ");
-        assertEquals(" ",level.getUltimo());
-    }
-
 }

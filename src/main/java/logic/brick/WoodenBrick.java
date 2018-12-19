@@ -24,19 +24,12 @@ public class WoodenBrick extends AbstractBrick {
     public void accept(VisitorLevel v){
         v.visitWoodenBrick(this);
     }
-
+    /**
+     * Método que permite saber si el brick es de tipo Wooden
+     * @ return true si es Wooden y false en cualquier otro caso.
+     */
     @Override
     public boolean isWooden() {
         return true;
-    }
-
-    @Override
-    public boolean isMetal() {
-        return false;
-    }
-
-    @Override
-    public boolean isGlass() {
-        return false;
     }
 }

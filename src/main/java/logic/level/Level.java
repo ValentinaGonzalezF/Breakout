@@ -73,35 +73,53 @@ public interface Level extends Observer,VisitorLevel {
      * @param level the next level of a level object
      */
     void setNextLevel(Level level);
+
     /**
      * Método que visita un GlassBrick,el que es un tipo Visitable
+     *
      * @param b es el objeto que visitará
      */
-     void visitGlassBrick(VisitableBrick b);
+    void visitGlassBrick(VisitableBrick b);
+
     /**
      * Método que visita un WoodenBrick, el que es un tipo Visitable
+     *
      * @param b es el objeto que visitará
      */
     void visitWoodenBrick(VisitableBrick b);
+
     /**
-     *Método que visita un MetalBrick,el que es un tipo Visitable
-     * @param b  es el objeto que visitará
+     * Método que visita un GoldenBrick,el que es un tipo Visitable
+     *
+     * @param b es el objeto que visitará
      */
+    void visitGoldenBrick(VisitableBrick b);
+
+    /**
+     * Método que visita un MetalBrick,el que es un tipo Visitable
+     *
+     * @param b es el objeto que visitará
+     */
+
     void visitMetalBrick(VisitableBrick b);
+
     /**
      * Método que permite setear el ultimo Brick que se destruyo como s
-     * @param s que es el numero string
+     *
+     * @param b que es el ultimo brick que se destruyo
      */
-    void setUltimo(String s);
+    void setUltimo(Brick b);
 
     /**
      * Método que permite obtener los ActualPoints del level
+     *
      * @return actualPoints
      */
     int getActualPoints();
+
     /**
      * Método que permite obtener el ultimo Brick que se destruyo
      * @return ultimo
      */
-    String getUltimo();
+    Brick getUltimo();
 }

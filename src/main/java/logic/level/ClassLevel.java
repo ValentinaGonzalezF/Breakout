@@ -18,7 +18,7 @@ public class ClassLevel extends AbstractLevel{
      */
     public ClassLevel(String n, List<Brick> list){
         super(n,list);
-        setNextLevel(new NullLevel(Integer.toString(Integer.parseInt(name)+1), new ArrayList<>()));
+        setNextLevel(new NullLevel(name, new ArrayList<>()));
     }
     /**
      * Whether the level's next level is playable or not.

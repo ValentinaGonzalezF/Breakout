@@ -18,7 +18,7 @@ public abstract class AbstractLevel extends Observable implements Level{
     protected int actualPoints;
     protected List<Brick> brickList;
     public Level nextLevel;
-    protected String ultimo;
+    public Brick ultimo;
     /**
      * Constructor de AbstractLevel
      * @param n que será el nombre que tendrá el level
@@ -37,7 +37,6 @@ public abstract class AbstractLevel extends Observable implements Level{
         name=n;
         actualPoints=0;
         points=this.getPoints();
-        ultimo="";
         this.subscribeAll(list);
     }
     /**
@@ -159,61 +158,80 @@ public abstract class AbstractLevel extends Observable implements Level{
     public void subscribe(Game game){
         this.addObserver(game);
     }
+
     /**
      * Método que permite setear el ultimo Brick que se destruyo como s
-     * @param s que es el numero string
+     * @param b que es el ultimo brick que se destruyo
      */
-    public void setUltimo(String s){
-        ultimo=s;
+    public void setUltimo(Brick b){
+        ultimo=b;
     }
 
     /**
      * Método que permite obtener el ultimo Brick que se destruyo
      * @return ultimo
      */
-    public String getUltimo(){
+    public Brick getUltimo(){
         return ultimo;
     }
-
     /**
      * Método que visita un GlassBrick,el que es un tipo Visitable
      * @param b es el objeto que visitará
      * Al recibir un notify del brick al destruirse, este visita al brick y actualiza los puntos
      * actuales del level al sumarle el score que tiene el Brick. Luego setea el atributo ultimo como
-     *  "glass", ya que fue el ultimo que se destruyo. Finalmente notifica a los observadores del level
+     *  el brick que se destruyo.. Finalmente notifica a los observadores del level
      *  que en este juego sera la clase Game
      */
     public void visitGlassBrick(VisitableBrick b){
-        actualPoints+= ((Brick)b).getScore();
-        this.setUltimo("glass");
-        setChanged();
-        this.notifyObservers();
+        visitGenerico(b);
     }
     /**
      * Método que visita un WoodenBrick,el que es un tipo Visitable
      * @param b es el objeto que visitará
      * Al recibir un notify del brick al destruirse, este visita al brick y actualiza los puntos
-     * actuales del level al sumarle el score que tiene el Brick. Luego setea el atributo ultimo como
-     *  "wooden", ya que fue el ultimo que se destruyo. Finalmente notifica a los observadores del level
+     * actuales del level al sumarle el score que tiene el Brick.Luego setea el atributo ultimo como
+     *  el brick que se destruyo.. Finalmente notifica a los observadores del level
      *  que en este juego sera la clase Game
      */
     public void visitWoodenBrick(VisitableBrick b){
-        actualPoints+= ((Brick)b).getScore();
-        this.setUltimo("wooden");
-        setChanged();
-        this.notifyObservers();
+        visitGenerico(b);
     }
     /**
      * Método que visita un MetalBrick,el que es un tipo Visitable
      * @param b es el objeto que visitará
      * Al recibir un notify del brick al destruirse, este visita al brick y actualiza los puntos
      * actuales del level al sumarle el score que tiene el Brick. Luego setea el atributo ultimo como
-     *  "metal", ya que fue el ultimo que se destruyo. Finalmente notifica a los observadores del level
+     * el brick que se destruyo.Finalmente notifica a los observadores del level
      *  que en este juego sera la clase Game
      */
     public void visitMetalBrick(VisitableBrick b){
-        actualPoints+= ((Brick)b).getScore();
-        this.setUltimo("metal");
+        visitGenerico(b);
+    }
+
+    /**
+     * Método que visita un GoldenBrick,el que es un tipo Visitable
+     * @param b es el objeto que visitará
+     * Al recibir un notify del brick al destruirse, este visita al brick y actualiza los puntos
+     * actuales del level al sumarle el score que tiene el Brick. Luego setea el atributo ultimo como
+     *  el brick que se destruyo. Finalmente notifica a los observadores del level
+     *  que en este juego sera la clase Game
+     */
+
+    public void visitGoldenBrick(VisitableBrick b){
+        visitGenerico(b);
+    }
+
+    /**
+     * Método que visita un Brick Generico,el que es un tipo Visitable
+     * @param b es el objeto que visitará
+     * Al recibir un notify del brick al destruirse, este visita al brick y actualiza los puntos
+     * actuales del level al sumarle el score que tiene el Brick. Luego setea el atributo ultimo como
+     *  el brick que se destruyo. Finalmente notifica a los observadores del level
+     *  que en este juego sera la clase Game
+     */
+    public void visitGenerico(VisitableBrick b) {
+        actualPoints += ((Brick) b).getScore();
+        this.setUltimo(((Brick)b));
         setChanged();
         this.notifyObservers();
     }

@@ -1,5 +1,4 @@
 package logic.brick;
-import controller.Game;
 import logic.VisitorLevel;
 
 /**
@@ -27,19 +26,13 @@ public class MetalBrick extends AbstractBrick {
     public void accept(VisitorLevel v) {
         v.visitMetalBrick(this);
     }
-
-    @Override
-    public boolean isWooden() {
-        return false;
-    }
-
+    /**
+     * Método que permite saber si el brick es de tipo Metal
+     * @ return true si es Metal y false en cualquier otro caso.
+     */
     @Override
     public boolean isMetal() {
         return true;
     }
 
-    @Override
-    public boolean isGlass() {
-        return false;
-    }
 }

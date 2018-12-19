@@ -19,4 +19,9 @@ public interface VisitorLevel {
      * @param b  es el objeto que visitará
      */
     public void visitMetalBrick(VisitableBrick b);
+     /**
+      *Método que visita un GoldenBrick,el que es un tipo Visitable
+      * @param b  es el objeto que visitará
+      */
+    public void visitGoldenBrick(VisitableBrick b);
 }

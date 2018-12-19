@@ -37,13 +37,21 @@ public class WoodenBrickTest {
         woodenBrick.hit();
 
     }
-
     @Test
-    public void accept() {
+    public void isWooden(){
+        assert(woodenBrick.isWooden());
     }
-
     @Test
-    public void suscribe() {
+    public void isMetal(){
+        assertFalse(woodenBrick.isMetal());
+    }
+    @Test
+    public void isGlass(){
+        assertFalse(woodenBrick.isGlass());
+    }
+    @Test
+    public void isGolden(){
+        assertFalse(woodenBrick.isGolden());
     }
 
 }

@@ -83,9 +83,34 @@ public abstract class AbstractBrick extends Observable implements Brick{
         addObserver(level);
     }
 
-    public abstract boolean isWooden();
+    /**
+     * Método que permite saber si el brick es de tipo Wooden
+     * @ return true si es wooden y false en cualquier otro caso.
+     */
+    public boolean isWooden(){
+        return false;
+    }
 
-    public abstract boolean isMetal();
+    /**
+     * Método que permite saber si el brick es de tipo Metal
+     * @ return true si es Metal y false en cualquier otro caso.
+     */
+    public boolean isMetal(){
+        return false;
+    }
 
-    public abstract boolean isGlass();
+    /**
+     * Método que permite saber si el brick es de tipo Glass
+     * @ return true si es Glass y false en cualquier otro caso.
+     */
+    public boolean isGlass(){
+        return false;
+    }
+    /**
+     * Método que permite saber si el brick es de tipo Golden
+     * @ return true si es golden y false en cualquier otro caso.
+     */
+    public boolean isGolden(){
+        return false;
+    }
 }

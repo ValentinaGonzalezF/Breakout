@@ -43,12 +43,14 @@ public class Game implements Observer{
      * Empieza con una lista vacia, luego crea un generador que ira entregando los numeros random
      * que permite la semilla, luego mientras no se tenga la cantidad de brick pedidos, se haran
      * brick de glass y/o wooden segun lo indique la probabilidad y se iran agregando a la lista.
-     * Luego realiza lo mismo pero de forma separada en otro while para obtener los metalBrick que
+     * Luego realiza lo mismo pero de forma separada en otro while para obtener los metalBrick y/o goldenBrick que
      * estaran en el nivel, agregandolos a la lista.
      * Finalmente crea y retorna el nivel con la lista y el nombre con el parametro name
      */
     public Level newLevelWithBricksFull(String name, int numberOfBricks, double probOfGlass, double probOfMetal, int seed) {
         List<Brick> lista=new ArrayList<>();
+        int contadorMetalBrick=0;
+        int contadorGoldenBrick=0;
         Random generator = new Random(seed);
         int i=0;
         while (i!=numberOfBricks){
@@ -67,9 +69,17 @@ public class Game implements Observer{
         }
         i=0;
         while (i!=numberOfBricks){
-            if(generator.nextDouble()<=probOfMetal) {
+            double a=generator.nextDouble();
+            if(a<=probOfMetal) {
                 Brick brick1;
                 brick1 = new MetalBrick();
+                lista.add(brick1);
+                contadorMetalBrick++;
+            }
+            else if (Math.abs(a-probOfMetal)<=0.2 && contadorGoldenBrick<contadorMetalBrick){
+                contadorGoldenBrick++;
+                Brick brick1;
+                brick1 = new GoldenBrick();
                 lista.add(brick1);
             }
             i++;
@@ -88,9 +98,11 @@ public class Game implements Observer{
      * Empieza con una lista vacia, luego crea un generador que ira entregando los numeros random
      * que permite la semilla, luego mientras no se tenga la cantidad de brick pedidos, se haran
      * brick de glass y/o wooden segun lo indique la probabilidad y se iran agregando a la lista.
+     * Puede o no haber un goldenBrick en el nivel.
      * Finalmente crea y retorna el nivel con la lista y el nombre con el parametro name
      */
     public Level newLevelWithBricksNoMetal(String name, int numberOfBricks, double probOfGlass, int seed) {
+        boolean goldenbrick=false;
         List<Brick> lista=new ArrayList<>();
         Random generator = new Random(seed);
         int i=0;
@@ -102,6 +114,12 @@ public class Game implements Observer{
             }
             else{
                 brick= new WoodenBrick();
+            }
+            if (numero<=0.7 && numero>=0.65 && !goldenbrick){
+                Brick brick1;
+                brick1 = new GoldenBrick();
+                goldenbrick=true;
+                lista.add(brick1);
             }
             lista.add(brick);
             i++;
@@ -148,7 +166,7 @@ public class Game implements Observer{
      * increase the points of the currentLevel
      */
     public void goNextLevel() {
-        totalscore+=((AbstractLevel)currentLevel).getActualPoints();
+        totalscore+=((Level)currentLevel).getActualPoints();
         setCurrentLevel(currentLevel.getNextLevel());
     }
 
@@ -216,7 +234,7 @@ public class Game implements Observer{
      * @return the cumulative points
      */
     public int getCurrentPoints(){
-        return totalscore+((AbstractLevel)currentLevel).getActualPoints();
+        return totalscore+((Level)currentLevel).getActualPoints();
     }
 
     /**
@@ -270,7 +288,8 @@ public class Game implements Observer{
     /**
      * Metodo update que permite actualizar el juego al ser notificado por el level que un
      * brick se destruyo. En este momento, verifica si el que le notifico fue un Level. Si es asi
-     * ve si el ultimo Brick fue metal. Si lo fue, agrega una pelota al juego.
+     * ve si el ultimo Brick fue metal. Si lo fue, agrega una pelota al juego. Si fue tipo golden
+     * le quita una pelota al juego.
      * Luego revisa si los puntos actuales del currentlevel son iguales a los puntos que se pueden
      * obtener. De ser asi, pasa de nivel.
      * @param observable es el objeto que estaba observando
@@ -279,11 +298,14 @@ public class Game implements Observer{
     @Override
     public void update(Observable observable, Object o) {
         if(observable instanceof Level) {
-            if (((Level)observable).getUltimo()=="metal"){
+            if (((Level)observable).getUltimo().isMetal()){
                 this.addBall();
             }
+            else if(((Level)observable).getUltimo().isGolden()){
+                this.dropBall();
+            }
 
-            if(currentLevel.getPoints()==((AbstractLevel)currentLevel).getActualPoints()){
+            if(currentLevel.getPoints()==((Level)currentLevel).getActualPoints()){
                 this.goNextLevel();
             }
         }

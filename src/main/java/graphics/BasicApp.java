@@ -19,8 +19,16 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-
 import static graphics.ExampleGameFactory.*;
+
+/**
+ * Clase BasicApp que extiende de GameApplication que permite tener control del juego y de la GUI
+ * con el fin de mostrarlo en pantalla. Controla las acciones del usuario y provoca cambios en
+ * la ventana en donde se representa el juego con todas las entidades con sus interacciones y muestra
+ * la información de niveles jugados, niveles por jugar, vidas, puntaje del nivel y puntaje global de
+ * la partida.
+ * @author vale
+ */
 
 public class BasicApp extends GameApplication {
     private PlayerControl playerControl;
@@ -34,8 +42,8 @@ public class BasicApp extends GameApplication {
 
     private boolean initMovement;
     private boolean initContact;
-    private boolean level=false;
-    private int contadorLevel=0;
+    private boolean level;
+    private int contadorLevel;
     private int jugados;
 
 
@@ -207,15 +215,16 @@ public class BasicApp extends GameApplication {
             @Override
             protected void onActionBegin() {
                 if(facade.isGameOver()){
-                    getGameWorld().removeEntity(player);
-                    player = newPlayer(460, 710);
-                    playerControl = player.getComponent(PlayerControl.class);
-                    getGameWorld().addEntity(player);
-                    initVars();
-                    initBall();
                     if(listEntitiesLevel.size()>0){
                         getGameWorld().removeEntities(listEntitiesLevel);
                     }
+                    getGameWorld().removeEntity(player);
+                    player = newPlayer(460, 710);
+                    initVars();
+                    initBall();
+                    playerControl = player.getComponent(PlayerControl.class);
+                    getGameWorld().addEntity(player);
+
                 }
             }
         }, KeyCode.R);
@@ -229,14 +238,12 @@ public class BasicApp extends GameApplication {
                     double nivel = Math.random();
                     contadorLevel++;
                     if (nivel > 0.5) {
-                        //int numberOfB=(int)( Math.random() * (65 - 60+ 1 ) ) + 60;
-                        int numberOfB = (int) (Math.random() * (6 - 6 + 1)) + 6;
+                        int numberOfB=(int)( Math.random() * (65 - 60+ 1 ) ) + 60;
                         double probM = Math.random();
-                        facade.addPlayingLevel(facade.newLevelWithBricksFull(Integer.toString(contadorLevel), numberOfB, probB, probM, seed));
+                        facade.addPlayingLevel(facade.newLevelWithBricksFull("hola", numberOfB, probB, probM, seed));
                     } else {
-                        //int numberOfB=(int)( Math.random() * (75 - 70+ 1 ) ) + 70;
-                        int numberOfB = (int) (Math.random() * (6 - 6 + 1)) + 6;
-                        facade.addPlayingLevel(facade.newLevelWithBricksNoMetal(Integer.toString(contadorLevel), numberOfB, probB, seed));
+                        int numberOfB=(int)( Math.random() * (75 - 70+ 1 ) ) + 70;
+                        facade.addPlayingLevel(facade.newLevelWithBricksNoMetal("hola", numberOfB, probB, seed));
                     }
 
                     if (!level) {
@@ -278,14 +285,14 @@ public class BasicApp extends GameApplication {
         textTotalScore.setFill(Color.WHITE);
         getGameScene().addUINode(textTotalScore);
 
-        Text numerolevel = new Text("LEVEL");
+        Text numerolevel = new Text("WONLEVELS");
         numerolevel.setFont(fontText);
         numerolevel.setTranslateX(230);
         numerolevel.setTranslateY(100);
         numerolevel.setFill(Color.WHITE);
         getGameScene().addUINode(numerolevel);
 
-        Text levelleft = new Text("LEVELLEFT");
+        Text levelleft = new Text("LEVELSLEFT");
         levelleft .setFont(fontText);
         levelleft .setTranslateX(230);
         levelleft .setTranslateY(50);
@@ -355,6 +362,7 @@ public class BasicApp extends GameApplication {
         String glass="glass.png";
         String metal="metal.png";
         String wooden="wood.png";
+        String golden="golden.png";
         String s;
         List <Entity> listBrickEntities=new ArrayList();
         int x=0;
@@ -374,8 +382,8 @@ public class BasicApp extends GameApplication {
             } else if (brick.isMetal()){
                 s=metal;
             }
-            else{//nuevo brick
-                s=metal;//no aun
+            else{
+                s=golden;
             }
             listBrickEntities.add(newBrick(x, y,s,brick));
             x += dx;
@@ -390,7 +398,6 @@ public class BasicApp extends GameApplication {
     }
 
     public void initVars(){
-        player.setPosition(460,710);
         facade=new HomeworkTwoFacade();
         initMovement=false;
         initContact=true;

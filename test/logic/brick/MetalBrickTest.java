@@ -45,4 +45,22 @@ public class MetalBrickTest {
     public void remainingHits() {
         assertEquals(10,metalBrick.remainingHits());
     }
- }
+    @Test
+    public void isWooden(){
+        assertFalse(metalBrick.isWooden());
+    }
+    @Test
+    public void isMetal(){
+        assert(metalBrick.isMetal());
+    }
+    @Test
+    public void isGlass(){
+        assertFalse(metalBrick.isGlass());
+    }
+    @Test
+    public void isGolden(){
+        assertFalse(metalBrick.isGolden());
+    }
+
+
+}

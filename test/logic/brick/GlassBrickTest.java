@@ -36,4 +36,21 @@ public class GlassBrickTest {
         assertEquals(1,glassBrick.remainingHits());
     }
 
+    @Test
+    public void isWooden(){
+        assertFalse(glassBrick.isWooden());
+    }
+    @Test
+    public void isMetal(){
+        assertFalse(glassBrick.isMetal());
+    }
+    @Test
+    public void isGlass(){
+        assert(glassBrick.isGlass());
+    }
+    @Test
+    public void isGolden(){
+        assertFalse(glassBrick.isGolden());
+    }
+
 }
