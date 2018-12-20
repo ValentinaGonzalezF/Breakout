@@ -81,10 +81,10 @@ public class BasicApp extends GameApplication {
                 });
 
         getPhysicsWorld().addCollisionHandler(
-                new CollisionHandler(ExampleType.PLAYER, ExampleType.WALL) {
+                new CollisionHandler(ExampleType.WALL, ExampleType.PLAYER) {
                     @Override
-                    protected void onHitBoxTrigger(Entity player, Entity wall,
-                                                   HitBox boxPlayer, HitBox boxWall) {
+                    protected void onHitBoxTrigger(Entity wall, Entity player,
+                                                   HitBox boxWall, HitBox boxPlayer) {
                         player.getComponent(PlayerControl.class).setVelocity(0);
                         if (boxWall.getName().equals("RIGHT")) {
                             playerControl.setPlayerWallRight(true);
@@ -148,13 +148,15 @@ public class BasicApp extends GameApplication {
     @Override
     protected void initGame() {
         Entity bg= newBackground();
+        walls=newWalls();
         player = newPlayer(460, 710);
         playerControl = player.getComponent(PlayerControl.class);
-        walls=newWalls();
-        getGameWorld().addEntities(bg,player,walls);
+
+        getGameWorld().addEntities(bg,walls,player);
         initBall();
         initVars();
     }
+
 
     @Override
     protected void initInput() {
@@ -229,14 +231,11 @@ public class BasicApp extends GameApplication {
                         getGameWorld().removeEntities(listEntitiesLevel);
                     }
                     getGameWorld().removeEntity(player);
-                    getGameWorld().removeEntity(walls);
                     player = newPlayer(460, 710);
                     initVars();
                     initBall();
                     playerControl = player.getComponent(PlayerControl.class);
                     getGameWorld().addEntity(player);
-                    walls=newWalls();
-                    getGameWorld().addEntity(walls);
                 }
             }
         }, KeyCode.R);
