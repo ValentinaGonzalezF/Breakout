@@ -45,7 +45,15 @@ public class HomeworkTwoFacade{
     public Level newLevelWithBricksNoMetal(String name, int numberOfBricks, double probOfGlass, int seed) {
         return game.newLevelWithBricksNoMetal(name,numberOfBricks,probOfGlass,seed);
     }
+
+
+
+    public Level newLevelWithBricks(String name, int numberOfBricks, double probOfGlass, double probOfMetal, int seed){
+        return game.newLevelWithBricks(name,numberOfBricks,probOfGlass,probOfMetal,seed);
+    }
+
     /**
+     *
      * Gets the number of {@link Brick} in the current level, that are still not destroyed
      *
      *

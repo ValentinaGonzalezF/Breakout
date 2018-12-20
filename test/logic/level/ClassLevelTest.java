@@ -37,7 +37,6 @@ public class ClassLevelTest {
         level=new ClassLevel("0", lista);
         otroLevel=new NullLevel("",l);
         brickLevel=new ClassLevel("",l1);
-
     }
 
     @Test

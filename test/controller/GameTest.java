@@ -7,6 +7,8 @@ import logic.level.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.*;
 
@@ -17,13 +19,16 @@ public class GameTest {
     private final int seed = 0;
     private Level level2;
     private Level level3;
+    private Level level4;
+    private Level level5;
     private List<Brick> lista2;
     private AbstractBrick a;
     private AbstractBrick b;
     private AbstractBrick c;
     private AbstractBrick d;
-    private Level level4;
+    private AbstractBrick e;
     private List<Brick> lista3;
+    private List<Brick> lista5;
 
     @Before
     public void setUp() throws Exception {
@@ -35,14 +40,17 @@ public class GameTest {
         b=new MetalBrick();
         c= new WoodenBrick();
         d=new WoodenBrick();
+        e=new GoldenBrick();
         lista2.add(a);
         lista2.add(b);
         lista2.add(c);
         lista3.add(d);
         level=new NullLevel("",lista);
         level2=new NullLevel("",lista);
-        level3=new ClassLevel("Level 5", lista2);
+        level3=new ClassLevel("Level 3", lista2);
         level4=new ClassLevel("Level 4", lista3);
+        lista3.add(e);
+        level5= new ClassLevel("Level 5",lista3);
     }
 
     @Test
@@ -79,6 +87,18 @@ public class GameTest {
         assertEquals(20,level2.getNumberOfBricks());
         assertEquals(50*20,level2.getPoints());
         assertEquals("Level 1", level2.getName());
+    }
+    @Test
+    public void newLevelWithBricks(){
+        level2=game.newLevelWithBricks("Level 1",20,1,0.5,seed);
+        assertEquals(30,level2.getNumberOfBricks());
+        assertEquals(2000,level2.getPoints());
+
+        level2=game.newLevelWithBricks("Level 1",20,0.9,0.5,seed);
+        assertEquals(30,level2.getNumberOfBricks());
+        assertEquals(2450,level2.getPoints());
+
+
     }
 
     @Test
@@ -176,6 +196,9 @@ public class GameTest {
         assertEquals(3,game.getBallsLeft());
         game.dropBall();
         assertEquals(2,game.getBallsLeft());
+        game.setCurrentLevel(level5);
+        repeat(15, () -> e.hit());
+        assertEquals(1,game.getBallsLeft());
     }
 
     @Test
@@ -203,4 +226,8 @@ public class GameTest {
         d.hit();
         assert(game.winner());
     }
+    private void repeat(int n, Runnable action) {
+        IntStream.range(0, n).forEach(i -> action.run());
+    }
+
 }

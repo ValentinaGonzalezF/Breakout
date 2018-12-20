@@ -43,11 +43,43 @@ public class Game implements Observer{
      * Empieza con una lista vacia, luego crea un generador que ira entregando los numeros random
      * que permite la semilla, luego mientras no se tenga la cantidad de brick pedidos, se haran
      * brick de glass y/o wooden segun lo indique la probabilidad y se iran agregando a la lista.
-     * Luego realiza lo mismo pero de forma separada en otro while para obtener los metalBrick y/o goldenBrick que
+     * Luego realiza lo mismo pero de forma separada en otro while para obtener los metalBrick que
      * estaran en el nivel, agregandolos a la lista.
      * Finalmente crea y retorna el nivel con la lista y el nombre con el parametro name
      */
     public Level newLevelWithBricksFull(String name, int numberOfBricks, double probOfGlass, double probOfMetal, int seed) {
+        List<Brick> lista=new ArrayList<>();
+        Random generator = new Random(seed);
+        int i=0;
+        while (i!=numberOfBricks){
+            double numero= generator.nextDouble();
+            if (numero<=probOfGlass){
+                Brick brick;
+                brick= new GlassBrick();
+                lista.add(brick);
+            }
+            else{
+                Brick brick;
+                brick= new WoodenBrick();
+                lista.add(brick);
+            }
+            i++;
+        }
+        i=0;
+        while (i!=numberOfBricks){
+            double a=generator.nextDouble();
+            if(a<=probOfMetal) {
+                Brick brick1;
+                brick1 = new MetalBrick();
+                lista.add(brick1);
+            }
+            i++;
+        }
+        Level a= new ClassLevel(name,lista);
+        return a;
+    }
+
+    public Level newLevelWithBricks(String name, int numberOfBricks, double probOfGlass, double probOfMetal, int seed) {
         List<Brick> lista=new ArrayList<>();
         int contadorMetalBrick=0;
         int contadorGoldenBrick=0;
@@ -98,11 +130,9 @@ public class Game implements Observer{
      * Empieza con una lista vacia, luego crea un generador que ira entregando los numeros random
      * que permite la semilla, luego mientras no se tenga la cantidad de brick pedidos, se haran
      * brick de glass y/o wooden segun lo indique la probabilidad y se iran agregando a la lista.
-     * Puede o no haber un goldenBrick en el nivel.
      * Finalmente crea y retorna el nivel con la lista y el nombre con el parametro name
      */
     public Level newLevelWithBricksNoMetal(String name, int numberOfBricks, double probOfGlass, int seed) {
-        boolean goldenbrick=false;
         List<Brick> lista=new ArrayList<>();
         Random generator = new Random(seed);
         int i=0;
@@ -114,12 +144,6 @@ public class Game implements Observer{
             }
             else{
                 brick= new WoodenBrick();
-            }
-            if (numero<=0.7 && numero>=0.65 && !goldenbrick){
-                Brick brick1;
-                brick1 = new GoldenBrick();
-                goldenbrick=true;
-                lista.add(brick1);
             }
             lista.add(brick);
             i++;

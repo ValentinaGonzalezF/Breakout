@@ -1,4 +1,5 @@
 package graphics;
+import com.almasb.fxgl.entity.Entity;
 import com.almasb.fxgl.entity.component.Component;
 import com.almasb.fxgl.physics.PhysicsComponent;
 
@@ -10,7 +11,6 @@ public class PlayerControl extends Component {
     private PhysicsComponent physics;
     private boolean playerWallLeft;
     private boolean playerWallRight;
-
     /**
      * Constructor de la clase PlayerControl que inicializa la variable physics en null
      * Esta permitirá después mover el player en el eje X
@@ -97,4 +97,5 @@ public class PlayerControl extends Component {
     public void stop() {
         physics.setVelocityX(0);
     }
+
 }
