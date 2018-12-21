@@ -29,7 +29,7 @@ Esta clase tiene el fin de poder controlar el movimiento de la Entity player cua
 ### BrickComponent
 Esta clase tiene el fin de poder asociarle a la Entidad Brick un brick, para poder usar los métodos que tiene el brick y poder enlazar la facade con la interfaz gráfica.
 ### Basic App
-Tiene todo el control de lo que muestra en pantalla, las entidades, los niveles, los textos, las interacciones del usuario, etc.
+Tiene todo el control de lo que muestra en pantalla, las entidades, los niveles, los textos, las interacciones del usuario, detectar colisiones entre entidades, etc. El juego empieza con un nivel vacio, al apretar N, se inicializa un nuevo nivel y si se apreta más veces, se añaden niveles a la cola. Al apretar R, se reinicia el juego solo si se ganó o perdió. Al apretar D, la pelota empieza a moverse, otorgandole una velocidad especifica. Debido a problemas con la pelota, esta tecla no se bloquea en ninguna instancia, pudiendo resetear la velocidad de la pelota si es que esta se queda en alguna esquina rebotando y no puede salir.  
 ### Features 
 #### GoldenBrick
 Se implementó un nuevo Brick, el cual es de tipo Golden, el cual tiene 1000 puntos y 15 golpes para destruirlo. Este se tuvo que simplemente implementar en la lógica.
