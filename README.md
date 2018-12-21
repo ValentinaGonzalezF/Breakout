@@ -34,4 +34,4 @@ Tiene todo el control de lo que muestra en pantalla, las entidades, los niveles,
 #### GoldenBrick
 Se implementó un nuevo Brick, el cual es de tipo Golden, el cual tiene 1000 puntos y 15 golpes para destruirlo. Este se tuvo que simplemente implementar en la lógica.
 #### Cambio de estado
-Se implementó un cambio de estado de cada Bricks, excepto en el tipo Glass, debido a que se destruye de inmediato cuando la pelota. WoodenBrick tiene 1 cambios, cuando los golpes que quedan son 2. En MetalBricks tiene 2 cambios, cuando los golpes que quedan son 6 y 3. En GoldenBrick tiene 3 cambios, cuando los golpes que quedan son 12, 8 y 4. Para cambiar de estado, simplemente se sube una distinta textura a la entidad Brick  
+Se implementó un cambio de estado de cada Bricks, excepto en el tipo Glass, debido a que se destruye de inmediato cuando la pelota. WoodenBrick tiene 1 cambios, cuando los golpes que quedan son 2. En MetalBricks tiene 2 cambios, cuando los golpes que quedan son 6 y 3. En GoldenBrick tiene 3 cambios, cuando los golpes que quedan son 12, 8 y 4. Para cambiar de estado, simplemente se sube una distinta textura a la entidad Brick.
