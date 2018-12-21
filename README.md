@@ -23,13 +23,13 @@ Cuando se crea un nivel, todos los brick que se crean y que estarán en la lista
 ## Interfaz Gráfica
 Se conecta la interfaz con la lógica del juego y se implementar algunos features. 
 ### Patrón de diseño Factory
-Se usó este pratrón para facilitar y encapsular la creaciónes de Entities. Existen 4 tipos de Entities. Brick, Wall, Player, Ball
+Se usó este pratrón para facilitar y encapsular la creaciónes de Entities. Existen 5 tipos de Entities. Brick, Wall, Player, Ball y Background. Cada una se crean en BasicApp para mostrarlos en la pantalla. Cada uno tiene propiedades y tienen texturas. La Ball como Player tienen propiedades físicas que ayudan a su interacción y los choques que tendrán mientras se juega.
 ### PlayerControl
-Esta clase tiene el fin de poder controlar el movimiento de la Entity player cuando el usuario aprete las teclas RIGHT y LEFT. 
+Esta clase tiene el fin de poder controlar el movimiento de la Entity player cuando el usuario aprete las teclas RIGHT y LEFT. Esto se implementó asi con el fin de poder evitar que el player siguiera yendo hacia la derecha si ya habia chocado con la muralla derecha. Para esto se iniciaron variables booleanas y cambian en BasicApp.
 ### BrickComponent
 Esta clase tiene el fin de poder asociarle a la Entidad Brick un brick, para poder usar los métodos que tiene el brick y poder enlazar la facade con la interfaz gráfica.
 ### Basic App
-
+Tiene todo el control de lo que muestra en pantalla, las entidades, los niveles, los textos, las interacciones del usuario, etc.
 ### Features 
 #### GoldenBrick
 Se implementó un nuevo Brick, el cual es de tipo Golden, el cual tiene 1000 puntos y 15 golpes para destruirlo. Este se tuvo que simplemente implementar en la lógica.
