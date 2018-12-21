@@ -7,12 +7,12 @@ puntaje al jugador acorde a la dificultad de destruir dicho Brick. Si la bola to
 de la pantalla, esta se considera una bola perdida y el jugador pierde una vida. Al empezar el juego, se inicia con un nivel
 sin Bricks y con 3 vidas. Luego si se quiere jugar, se inicia un nivel con Bricks, en donde pueden ser de 3 tipos: Wooden, Glass y Metal. Cada uno tiene puntajes diferentes y cantidad de golpes para destruirlo. El wooden tiene 200 puntos y 3 golpes, Glass tiene 50 puntos y 1 golpe y Metal tiene 10 golpes y 0 puntos. Para pasar de nivel se tienen que destruir todo los GlassBricks y WoodenBricks, los de Metal puede ser destruidos, pero no es necesario para pasar de nivel, ya que no suman puntaje. Una vez que se pasan todos los niveles del juego, se gana. 
 
-## Logica
-### Logica de los Bricks
+## Lógica
+### Lógica de los Bricks
 En esta tarea se implementó la lógica del juego Breakout. En este juego hay primero Bricks, los cuales pueden ser de tres tipos Wooden,Glass o Metal, por lo que se optó por implementar una interfaz llamada Brick que tuviera todos los métodos comunes entre estos tipo de Bricks. Posteriormente, se creó una clase abstracta Brick la cual sería el padre de las clases WoodenBrick, MetalBrick y GlassBrick. A esta clase padre se le implementó la interfaz y a las Clases MetalBrick, GlassBrick y WoodenBrick, que son una extensión de la clase AbstractBrick. 
-
-Luego estan los niveles, en el cual ya se tenia la interfaz Level, por lo que se decidió implementar una clase AbstractLevel que implementaba esta interfaz para implementar los métodos pedidos. Luego, habian dos tipos de niveles, los normales y los que son null, ya que en enunciado se especifica que el juego parte con un nivel vacio, por lo que se optó crear la clase NullLevel basandose en el Null Object Pattern que permite trabajar de forma más facil los objetos nulos. Al tener esas subclases de AbstractLevel, las que son ClassLevel y NullLevel, se tuvo que especificar algunos métodos, ya que NullLevel debe tener métodos que comparte con los otros pero que difieren en el valor que entrega.
-
+### Lógica de los Levels
+Para crear los Levels, ya se tenia la interfaz Level, por lo que se decidió implementar una clase AbstractLevel que implementaba esta interfaz para implementar los métodos pedidos. Luego, habian dos tipos de niveles, los normales y los que son null, ya que en enunciado se especifica que el juego parte con un nivel vacio, por lo que se optó crear la clase NullLevel basandose en el Null Object Pattern que permite trabajar de forma más facil los objetos nulos. Al tener esas subclases de AbstractLevel, las que son ClassLevel y NullLevel, se tuvo que especificar algunos métodos, ya que NullLevel debe tener métodos que comparte con los otros pero que difieren en el valor que entrega.
+### Lógica de Facade y Game
 Luego, se encontrada la clase Facade que usaba los métodos de la clase Game, por lo que en cada método de Facade se llamó al mismo método pero de la clase Game. En Game estaba toda la lógica de juego.
 
 ### Patrones de diseño Observer/Observable y Visitor
