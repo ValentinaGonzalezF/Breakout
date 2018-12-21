@@ -23,15 +23,15 @@ Cuando se crea un nivel, todos los brick que se crean y que estarán en la lista
 ## Interfaz Gráfica
 Se conecta la interfaz con la lógica del juego y se implementar algunos features. 
 ### Patrón de diseño Factory
-
+Se usó este pratrón para facilitar y encapsular la creaciónes de Entities. Existen 4 tipos de Entities. Brick, Wall, Player, Ball
 ### PlayerControl
-
+Esta clase tiene el fin de poder controlar el movimiento de la Entity player cuando el usuario aprete las teclas RIGHT y LEFT. 
 ### BrickComponent
-
+Esta clase tiene el fin de poder asociarle a la Entidad Brick un brick, para poder usar los métodos que tiene el brick y poder enlazar la facade con la interfaz gráfica.
 ### Basic App
 
 ### Features 
 #### GoldenBrick
-Se implementó un nuevo Brick, el cual es de tipo Golden, el cual tiene 1000 puntos y 15 golpes para destruirlo. Este se tuvo que simplemente implementar en la lógica. 
+Se implementó un nuevo Brick, el cual es de tipo Golden, el cual tiene 1000 puntos y 15 golpes para destruirlo. Este se tuvo que simplemente implementar en la lógica.
 #### Cambio de estado
 Se implementó un cambio de estado de cada Bricks, excepto en el tipo Glass, debido a que se destruye de inmediato cuando la pelota. WoodenBrick tiene 1 cambios, cuando los golpes que quedan son 2. En MetalBricks tiene 2 cambios, cuando los golpes que quedan son 6 y 3. En GoldenBrick tiene 3 cambios, cuando los golpes que quedan son 12, 8 y 4. Para cambiar de estado, simplemente se sube una distinta textura a la entidad Brick  
