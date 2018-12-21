@@ -24,4 +24,5 @@ Cuando se crea un nivel, todos los brick que se crean y que estarán en la lista
 Se conecta la interfaz con la lógica del juego y se implementar algunos features. 
 ### Patrón de diseño Factory
 
+### Basic App
 
