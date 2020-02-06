@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Facade class to expose the logic of the game to a GUI in the upcoming homework.
  *
- * @author Juan-Pablo Silva
+ * @author Juan-Pablo SilvaaddBall
  */
 public class HomeworkTwoFacade{
     /**

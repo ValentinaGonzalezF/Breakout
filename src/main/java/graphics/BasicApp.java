@@ -215,7 +215,7 @@ public class BasicApp extends GameApplication {
             @Override
             protected void onAction() {
                 if(facade.getBallsLeft()>0 && !facade.isGameOver()) {
-                    ball.getComponent(PhysicsComponent.class).setLinearVelocity(-80, -80);
+                    ball.getComponent(PhysicsComponent.class).setLinearVelocity(-230, -230);
                     initMovement = true;
                     getPhysicsWorld().setGravity(0.1, -0.1);
                     initContact = false;

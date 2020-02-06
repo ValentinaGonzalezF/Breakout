@@ -68,7 +68,7 @@ public class PlayerControl extends Component {
      */
     public void left() {
         if (!playerWallLeft){
-            physics.setVelocityX(-130);
+            physics.setVelocityX(-230);
             if(playerWallRight){
                 playerWallRight=false;
 
@@ -84,7 +84,7 @@ public class PlayerControl extends Component {
      */
     public void right() {
         if (!playerWallRight){
-            physics.setVelocityX(130);
+            physics.setVelocityX(230);
             if(playerWallLeft){
                 playerWallLeft=false;
             }
