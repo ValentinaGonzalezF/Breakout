@@ -1,5 +1,7 @@
 # BreakOut
-![alt text](https://raw.githubusercontent.com/ValentinaGonzalezF/cc3002-breakout/master/break.png)
+<p align="center">
+<img src="https://raw.githubusercontent.com/ValentinaGonzalezF/cc3002-breakout/master/break.png" width="600" height="490">
+</p>
 
 ## Descripción 
 Breakout es un juego de arcade que consiste en utilizar una barra horizontal y una bola que
