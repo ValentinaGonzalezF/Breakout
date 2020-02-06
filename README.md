@@ -1,4 +1,6 @@
 # BreakOut
+![alt text](https://raw.githubusercontent.com/ValentinaGonzalezF/cc3002-breakout/master/break.png)
+
 ## Descripción 
 Breakout es un juego de arcade que consiste en utilizar una barra horizontal y una bola que
 rebota en las paredes de la pantalla, para golpear Bricks posicionados en la parte superior de la
